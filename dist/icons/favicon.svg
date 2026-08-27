@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Costanera Corrientes">
+  <rect width="64" height="64" rx="14" fill="#123b43"/>
+  <circle cx="32" cy="27" r="10" fill="#F7D48B"/>
+  <path d="M12 39c7 3 12.5 3 20 0 7.5-3 13-3 20 0M12 46c7 3 12.5 3 20 0 7.5-3 13-3 20 0" fill="none" stroke="#73C5BF" stroke-width="4" stroke-linecap="round"/>
+</svg>

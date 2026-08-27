@@ -1,0 +1,413 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+
+interface Props { lang: 'es' | 'en'; }
+const { lang } = Astro.props;
+const isEs = lang === 'es';
+const homePath = isEs ? '/' : '/en/';
+const pageTitle = isEs ? 'Costanera Corrientes | Guía del paseo del río Paraná' : 'Costanera Corrientes | Paraná Riverfront Guide';
+const pageDescription = isEs
+  ? 'Guía independiente y sin fines de lucro para visitar la Costanera Corrientes: historia, paseo ribereño, transporte, servicios y preguntas frecuentes.'
+  : 'An independent, non-profit guide to Costanera Corrientes: history, riverfront promenade, transport, visitor facilities and FAQs.';
+
+const copy = isEs ? {
+  heroKicker: 'Corrientes Capital · Argentina',
+  heroTitle: 'Donde la ciudad se encuentra con el Paraná.',
+  heroIntro: 'Un paseo ribereño de escala urbana, con miradores, espacios verdes, playas y una escena cotidiana que cambia con la luz del río.',
+  plan: 'Planificá tu visita',
+  explore: 'Explorar el paseo',
+  ratingLabel: 'valoración de visitantes',
+  reviewsLabel: 'reseñas en el perfil del lugar',
+  lengthLabel: 'Costanera Norte',
+  lengthValue: '2,5 km',
+  accessLabel: 'acceso general',
+  accessValue: 'sin entrada',
+  quick: [
+    ['Ubicación', 'Av. Costanera Gral. San Martín 3400, Corrientes'],
+    ['Mejor momento', 'Tarde y atardecer, con luz más suave'],
+    ['Tiempo sugerido', 'Entre 1,5 y 3 horas para caminar sin prisa'],
+    ['Carácter', 'Paseo público de río, paisaje y vida local']
+  ],
+  storyEyebrow: 'Un frente de agua con memoria',
+  storyTitle: 'La Costanera es una forma de mirar la ciudad.',
+  storyP1: 'A la orilla del río Paraná, la Costanera General San Martín articula el horizonte abierto con plazas, áreas recreativas y sectores de descanso. Es uno de los espacios urbanos más representativos de Corrientes Capital y un punto habitual de encuentro para residentes y visitantes.',
+  storyP2: 'La Costanera Norte se desarrolló entre 1929 y 1954 y se extiende aproximadamente 2,5 kilómetros. Junto a su continuidad peatonal aparecen puntos reconocibles como Punta San Sebastián, Punta Tacuara y el parque Cambá Cuá, además de vistas hacia el Puente General Belgrano.',
+  storyQuote: 'No es un recinto ni una excursión cerrada: es un borde urbano vivo, pensado para recorrer con atención al río, al clima y al ritmo local.',
+  imageAlt: 'Vista del río Paraná y el Puente General Belgrano desde la costanera',
+  imageCaption: 'El río Paraná y el Puente General Belgrano forman parte del paisaje visual del paseo.',
+  visitEyebrow: 'Información práctica',
+  visitTitle: 'Antes de salir: lo esencial.',
+  visitIntro: 'Este es un paseo público exterior. La experiencia cambia según la hora, la temperatura, el nivel del río y los eventos; la información específica de balnearios o actividades debe confirmarse mediante canales oficiales.',
+  cards: [
+    ['Costo y acceso', 'No hay una entrada general para recorrer la avenida y sus espacios públicos. Las playas, eventos o servicios temporales pueden operar con reglas y horarios propios.'],
+    ['Cuándo ir', 'Las últimas horas de la tarde reúnen paseo, vista y menor exposición solar. Para caminar o pedalear, evitá el calor intenso y llevá agua.'],
+    ['Estacionamiento', 'Hay sectores de detención y estacionamiento urbano en calles próximas. Observá señalización, accesos y restricciones vigentes; no bloquees veredas, ciclovías ni ingresos.']
+  ],
+  historyEyebrow: 'Historia del paseo',
+  historyTitle: 'Obra, expansión y orilla.',
+  timeline: [
+    ['1929–1954', 'Construcción de la Costanera Norte', 'El tramo asociado a la avenida General San Martín se consolidó durante estas décadas como una obra urbana sobre la ribera.'],
+    ['2008', 'Extensión Juan Pablo II', 'La ciudad incorporó aproximadamente 900 metros adicionales de costanera, ampliando el continuo recreativo frente al río.'],
+    ['Hoy', 'Un paisaje compartido', 'El conjunto conecta tramos de paseo, playas, áreas verdes, monumentos, puntos panorámicos y encuentros cotidianos.']
+  ],
+  routeEyebrow: 'Recorrido sugerido',
+  routeTitle: 'Un paseo atento, no una carrera.',
+  route: [
+    ['Empezá con el río', 'Elegí un acceso próximo a la avenida Costanera General San Martín y tomá unos minutos para orientarte: el viento, la luz y el flujo de personas definen el ritmo.'],
+    ['Caminá por la ribera', 'SeguÍ el frente de agua a tu propio paso. El valor del recorrido está en los cambios de perspectiva: arbolado, gradas, puntos de descanso y el horizonte del Paraná.'],
+    ['Sumá una pausa verde', 'El parque Cambá Cuá y los espacios cercanos ofrecen una transición entre la costanera y el tejido de la ciudad. Respetá el mobiliario, las áreas de juego y el descanso de otras personas.'],
+    ['Cerrá al atardecer', 'La luz baja vuelve más visible la amplitud del río y la silueta del puente. Después de oscurecer, priorizá sectores iluminados y transitados.']
+  ],
+  localTipTitle: 'Cuidado con el entorno',
+  localTip: 'La costanera es un espacio compartido. Llevate tus residuos, respetá los accesos de emergencia, consultá condiciones de baño si se habilitan playas y seguí las indicaciones municipales ante crecidas, tormentas o actividades masivas.',
+  servicesEyebrow: 'Servicios y necesidades',
+  servicesTitle: 'Información útil, sin recomendaciones comerciales.',
+  servicesIntro: 'La disponibilidad puede variar por tramo, temporada, obras, clima o eventos. Esta guía indica tipos de servicio que suelen encontrarse en el entorno urbano, sin promocionar establecimientos concretos.',
+  services: [
+    ['Baños', 'Buscá instalaciones públicas o de acceso habilitado según el sector; confirmá horarios y condiciones de uso en sitio.'],
+    ['Comida y bebida', 'En el área urbana cercana hay opciones de gastronomía de distintos formatos. Considerá agua potable y protección solar durante recorridos largos.'],
+    ['Alojamiento', 'El centro y los corredores urbanos próximos concentran diversos tipos de alojamiento. Elegí según accesibilidad, horario de llegada y movilidad.'],
+    ['Compras básicas', 'Hay comercios de proximidad en el entorno de la ciudad. Planificá provisiones antes de actividades extensas al aire libre.'],
+    ['Combustible y carga', 'Los servicios vehiculares se encuentran en avenidas y áreas comerciales de la ciudad; verificá disponibilidad de carga para tu tipo de vehículo.'],
+    ['Accesibilidad', 'Hay veredas y espacios abiertos, pero las superficies, pendientes y cruces cambian según el tramo. Revisá tu itinerario y requerimientos antes de salir.']
+  ],
+  transportEyebrow: 'Cómo llegar',
+  transportTitle: 'Llegar desde la ciudad, el aeropuerto o la terminal.',
+  transport: [
+    ['Desde el aeropuerto', 'El Aeropuerto Internacional Doctor Fernando Piragine Niveyro se sitúa fuera del centro. Un servicio diferencial aeropuerto–puerto fue anunciado por el municipio en 2022; por cambios operativos, verificá el transporte vigente antes del viaje. Taxi, remis o traslado reservado son alternativas habituales.'],
+    ['En colectivo urbano', 'Las paradas y recorridos cambian con la operación local. Consultá canales municipales o el operador de transporte para identificar la línea y la parada convenientes a tu punto de acceso.'],
+    ['Taxi, remis, bici o a pie', 'Desde el centro, la costanera es accesible según el tramo elegido. Coordiná el descenso en una referencia clara, usá casco al circular en bicicleta y cruzá únicamente por sectores señalizados.']
+  ],
+  transportNote: 'Consejo de planificación: para horarios, tarifas y desvíos de transporte, verificá información actualizada con fuentes públicas de la ciudad. La nota municipal sobre el servicio al aeropuerto describe un recorrido histórico y no garantiza que siga operativo.',
+  mapEyebrow: 'Ubicación',
+  mapTitle: 'En la ribera de Corrientes Capital.',
+  mapIntro: 'El punto de referencia se ubica sobre Av. Costanera General San Martín 3400. Usá el mapa para orientarte y elegí tu acceso considerando el momento del día, el medio de transporte y las condiciones del paseo.',
+  mapLink: 'Abrir en Google Maps',
+  nearbyEyebrow: 'Cerca del recorrido',
+  nearbyTitle: 'Paisaje, historia y ciudad a corta distancia.',
+  nearby: [
+    ['Parque Cambá Cuá', 'Espacio verde integrado al entorno de la costanera, adecuado para sumar una pausa arbolada al recorrido urbano.'],
+    ['Puente General Belgrano', 'Infraestructura emblemática visible desde distintos puntos de la ribera y parte fundamental de las panorámicas hacia el río.'],
+    ['Puntas y miradores', 'Punta San Sebastián, Punta Tacuara y otros puntos ribereños permiten reconocer las variaciones del frente de agua.']
+  ],
+  foodEyebrow: 'Comer cerca, con criterio',
+  foodTitle: 'Gastronomía alrededor del paseo.',
+  foodText: 'La costanera se conecta con corredores urbanos donde se encuentran formatos gastronómicos diversos. Para mantener esta guía independiente, no destacamos negocios concretos: sugerimos elegir según horario, accesibilidad, dieta y capacidad de residuos.',
+  foodTypes: [
+    ['Cafeterías y confiterías', 'Una alternativa habitual para una pausa diurna.'],
+    ['Cocina regional', 'Una oportunidad para conocer sabores del Litoral.'],
+    ['Comidas rápidas', 'Útiles para tiempos breves, considerando envases y residuos.'],
+    ['Opciones nocturnas', 'Revisá horarios, movilidad de regreso e iluminación del entorno.']
+  ],
+  faqEyebrow: 'Preguntas frecuentes',
+  faqTitle: 'Respuestas para una visita mejor preparada.',
+  faq: [
+    ['¿La Costanera Corrientes tiene entrada?', 'El paseo general se desarrolla en espacio público y no tiene una entrada general. Sin embargo, actividades, playas habilitadas o eventos pueden establecer condiciones particulares.'],
+    ['¿Cuánto tiempo conviene reservar?', 'Entre una hora y media y tres horas permite caminar con pausas, observar el río y conectar con los espacios cercanos. El tiempo real depende del tramo elegido, el clima y tu movilidad.'],
+    ['¿Cuál es el mejor horario?', 'El atardecer es popular por la luz sobre el Paraná y temperaturas habitualmente más amables. Para una visita tranquila, también puede resultar conveniente una franja matinal.'],
+    ['¿Hay estacionamiento y baños?', 'Existen opciones urbanas de estacionamiento en el entorno, sujetas a señalización. Los baños y otros servicios no deben asumirse disponibles en todos los tramos; verificá en sitio.'],
+    ['¿Puedo llegar desde el aeropuerto en transporte público?', 'El municipio comunicó un servicio diferencial en 2022, pero los recorridos pueden modificarse o suspenderse. Confirmá la situación actual antes de planificar y contemplá taxi, remis o traslado reservado.']
+  ],
+  sourceLabel: 'Fuentes públicas para profundizar: ',
+  sourceEnd: '. Esta guía las resume con fines educativos y recomienda confirmar cambios operativos antes de viajar.',
+  schemaDescription: 'Paseo ribereño público sobre el río Paraná en Corrientes Capital, Argentina.'
+} : {
+  heroKicker: 'Corrientes Capital · Argentina',
+  heroTitle: 'Where the city meets the Paraná.',
+  heroIntro: 'An urban riverfront promenade shaped by lookouts, green spaces, beaches and a daily rhythm that shifts with the river light.',
+  plan: 'Plan your visit',
+  explore: 'Explore the promenade',
+  ratingLabel: 'visitor rating',
+  reviewsLabel: 'reviews on the place profile',
+  lengthLabel: 'Costanera Norte',
+  lengthValue: '2.5 km',
+  accessLabel: 'general access',
+  accessValue: 'no admission',
+  quick: [
+    ['Location', 'Av. Costanera Gral. San Martín 3400, Corrientes'],
+    ['Best time', 'Late afternoon and sunset, with softer light'],
+    ['Suggested time', 'Allow 1.5–3 hours for an unhurried walk'],
+    ['Character', 'A public riverside promenade for landscape and local life']
+  ],
+  storyEyebrow: 'A waterfront with memory',
+  storyTitle: 'The Costanera is a way of looking at the city.',
+  storyP1: 'On the banks of the Paraná River, Costanera General San Martín connects an open horizon with plazas, recreation areas and places to pause. It is one of the most representative public spaces in Corrientes Capital and a regular meeting point for residents and visitors.',
+  storyP2: 'Costanera Norte was developed between 1929 and 1954 and extends for about 2.5 kilometres. Along its walkable waterfront are recognisable points such as Punta San Sebastián, Punta Tacuara and Parque Cambá Cuá, as well as views towards General Belgrano Bridge.',
+  storyQuote: 'This is not an enclosed venue or a packaged excursion: it is a living urban edge, best experienced by noticing the river, the weather and the local pace.',
+  imageAlt: 'Paraná River and General Belgrano Bridge seen from the Costanera',
+  imageCaption: 'The Paraná River and General Belgrano Bridge are central features of the promenade’s visual landscape.',
+  visitEyebrow: 'Practical information',
+  visitTitle: 'Before you go: the essentials.',
+  visitIntro: 'This is an outdoor public promenade. The experience changes with the time of day, temperature, river level and events; check official channels for specific beach or activity information.',
+  cards: [
+    ['Fees and access', 'There is no general admission fee to walk the avenue and its public spaces. Beaches, events or temporary services may operate under their own rules and schedules.'],
+    ['When to go', 'Late afternoon pairs a walk and river views with less direct sun. For walking or cycling, avoid peak heat and bring water.'],
+    ['Parking', 'There are urban stopping and parking areas on nearby streets. Follow current signs, access rules and restrictions; do not obstruct pavements, cycle routes or entrances.']
+  ],
+  historyEyebrow: 'History of the promenade',
+  historyTitle: 'Construction, extension and riverbank.',
+  timeline: [
+    ['1929–1954', 'Costanera Norte construction', 'The stretch associated with Avenida General San Martín was consolidated across these decades as an urban riverbank project.'],
+    ['2008', 'Juan Pablo II extension', 'The city added approximately 900 additional metres of waterfront, expanding its recreational continuity along the river.'],
+    ['Today', 'A shared landscape', 'The wider waterfront connects promenades, beaches, green areas, monuments, panoramic points and everyday social life.']
+  ],
+  routeEyebrow: 'Suggested route',
+  routeTitle: 'A mindful walk, not a race.',
+  route: [
+    ['Start with the river', 'Choose an access near Avenida Costanera General San Martín and take a few minutes to orient yourself: wind, light and pedestrian flow set the pace.'],
+    ['Follow the waterfront', 'Walk at your own speed. The value of the route lies in shifting perspectives: trees, steps, rest points and the Paraná horizon.'],
+    ['Add a green pause', 'Parque Cambá Cuá and nearby spaces transition between the waterfront and the city fabric. Respect facilities, play areas and other people’s quiet time.'],
+    ['Finish at sunset', 'Low light makes the river’s breadth and the bridge silhouette stand out. After dark, choose illuminated and well-used sections.']
+  ],
+  localTipTitle: 'Care for the setting',
+  localTip: 'The waterfront is a shared place. Take your rubbish with you, respect emergency access, check bathing conditions if beaches are open and follow municipal guidance during high water, storms or large events.',
+  servicesEyebrow: 'Facilities and everyday needs',
+  servicesTitle: 'Useful information, without commercial endorsements.',
+  servicesIntro: 'Availability varies by stretch, season, works, weather and events. This guide notes service categories commonly found in the urban surroundings without promoting particular businesses.',
+  services: [
+    ['Restrooms', 'Look for public facilities or access-controlled facilities in the relevant area; confirm opening times and use conditions on site.'],
+    ['Food and drinks', 'The nearby urban area offers several food-service formats. Consider drinking water and sun protection for longer outdoor routes.'],
+    ['Accommodation', 'The city centre and nearby urban corridors offer different accommodation types. Choose around accessibility, arrival time and mobility needs.'],
+    ['Basic supplies', 'Neighbourhood retail is available in the city setting. Plan supplies before extended outdoor activity.'],
+    ['Fuel and charging', 'Vehicle services are found along city avenues and commercial areas; verify charging availability for your vehicle type.'],
+    ['Accessibility', 'There are pavements and open spaces, but surfaces, slopes and crossings differ by section. Check your route and requirements before leaving.']
+  ],
+  transportEyebrow: 'Getting here',
+  transportTitle: 'From the city, airport or bus terminal.',
+  transport: [
+    ['From the airport', 'Doctor Fernando Piragine Niveyro International Airport is outside the city centre. The municipality announced a dedicated airport–port bus in 2022; because services can change, check current transport before travelling. Taxi, remis or a pre-booked transfer are common alternatives.'],
+    ['By city bus', 'Stops and routes change with local operations. Consult municipal channels or the local operator to identify the route and stop best suited to your chosen access point.'],
+    ['Taxi, remis, bike or on foot', 'From the centre, the Costanera is reachable depending on the section you choose. Arrange drop-off at a clear landmark, use a helmet when cycling and cross only at marked locations.']
+  ],
+  transportNote: 'Planning note: check current public city sources for timetables, fares and diversions. The municipal airport-service notice documents a historical route and does not guarantee present operation.',
+  mapEyebrow: 'Location',
+  mapTitle: 'On the Corrientes Capital riverbank.',
+  mapIntro: 'The reference point is at Av. Costanera General San Martín 3400. Use the map to orient yourself and select access around the time of day, transport mode and conditions on the promenade.',
+  mapLink: 'Open in Google Maps',
+  nearbyEyebrow: 'Near the route',
+  nearbyTitle: 'Landscape, history and city at short range.',
+  nearby: [
+    ['Parque Cambá Cuá', 'A green public space within the Costanera setting, suited to adding a tree-lined pause to an urban walk.'],
+    ['General Belgrano Bridge', 'An emblematic piece of infrastructure visible from multiple riverbank points and central to views over the river.'],
+    ['Points and lookouts', 'Punta San Sebastián, Punta Tacuara and other riverbank points reveal changing aspects of the waterfront.']
+  ],
+  foodEyebrow: 'Eating nearby, thoughtfully',
+  foodTitle: 'Food around the promenade.',
+  foodText: 'The Costanera connects to urban corridors with varied food-service formats. To keep this guide independent, we do not feature particular businesses; choose based on hours, accessibility, dietary needs and waste practices.',
+  foodTypes: [
+    ['Cafés and tea rooms', 'A common option for a daytime pause.'],
+    ['Regional cooking', 'An opportunity to explore flavours of Argentina’s Litoral region.'],
+    ['Quick meals', 'Useful when time is limited; keep packaging and rubbish in mind.'],
+    ['Evening options', 'Check opening times, return transport and surrounding lighting.']
+  ],
+  faqEyebrow: 'Frequently asked questions',
+  faqTitle: 'Answers for a better prepared visit.',
+  faq: [
+    ['Is there an entrance fee for Costanera Corrientes?', 'The general promenade is public space and has no general admission fee. Activities, open beaches or events may set specific conditions.'],
+    ['How much time should I allow?', 'Allowing between one and a half and three hours lets you walk, pause, observe the river and connect with nearby spaces. Actual time depends on the stretch, weather and mobility.'],
+    ['What is the best time to visit?', 'Sunset is popular for light on the Paraná and typically gentler temperatures. A morning visit can also be a quieter choice.'],
+    ['Are parking and restrooms available?', 'There are urban parking options nearby, subject to signs. Restrooms and other facilities should not be assumed across every stretch; verify on site.'],
+    ['Can I use public transport from the airport?', 'The municipality reported a dedicated service in 2022, but routes may change or be discontinued. Confirm the current position before planning and consider taxi, remis or a pre-booked transfer.']
+  ],
+  sourceLabel: 'Public sources for further reading: ',
+  sourceEnd: '. This guide summarises them for educational purposes and recommends confirming operational changes before travelling.',
+  schemaDescription: 'Public riverfront promenade on the Paraná River in Corrientes Capital, Argentina.'
+};
+
+const placeUrl = Astro.site ? new URL(homePath, Astro.site).toString() : undefined;
+const attractionSchema = {
+  '@context': 'https://schema.org',
+  '@type': ['TouristAttraction', 'LocalBusiness'],
+  name: 'Costanera Corrientes',
+  alternateName: 'Costanera General San Martín',
+  description: copy.schemaDescription,
+  ...(placeUrl ? { url: placeUrl } : {}),
+  image: placeUrl ? [new URL('/images/costanera-bridge.jpg', Astro.site).toString()] : undefined,
+  telephone: '+54 379 447-4702',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Av. Costanera Gral. San Martín 3400',
+    addressLocality: 'Corrientes',
+    addressRegion: 'Corrientes',
+    postalCode: 'W3400',
+    addressCountry: 'AR'
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: -27.465140576322273,
+    longitude: -58.850583022788314
+  },
+  openingHoursSpecification: {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+    opens: '00:00',
+    closes: '23:59'
+  },
+  isAccessibleForFree: true,
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '4.7',
+    reviewCount: '16367',
+    bestRating: '5'
+  }
+};
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: copy.faq.map(([question, answer]) => ({
+    '@type': 'Question',
+    name: question,
+    acceptedAnswer: { '@type': 'Answer', text: answer }
+  }))
+};
+const mapEmbed = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6296.6415473703!2d-58.850583022788314!3d-27.465140576322273!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94456cb759536285%3A0x9405d9e6bbb5b145!2sCostanera%20Corrientes!5e1!3m2!1ses-419!2ses-419!4v1787796114936!5m2!1ses-419!2ses-419';
+---
+<BaseLayout title={pageTitle} description={pageDescription} lang={lang} path={homePath}>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify([attractionSchema, faqSchema])}></script>
+  <Header lang={lang} />
+  <main id="contenido-principal">
+    <section class="hero" aria-labelledby="hero-title">
+      <img class="hero-media" src="/images/costanera-bridge.jpg" alt="" width="1080" height="1350" fetchpriority="high" />
+      <div class="container hero-content">
+        <div class="hero-kicker">
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-5.2 7-12a7 7 0 1 0-14 0c0 6.8 7 12 7 12Z"/><circle cx="12" cy="9" r="2.2"/></svg>
+          {copy.heroKicker}
+        </div>
+        <h1 id="hero-title">{copy.heroTitle}</h1>
+        <p class="hero-intro">{copy.heroIntro}</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#visita">{copy.plan}</a>
+          <a class="button button-ghost" href="#historia">{copy.explore}</a>
+        </div>
+        <div class="hero-facts" aria-label={isEs ? 'Datos destacados' : 'Highlights'}>
+          <div><strong>4.7 / 5</strong><span>{copy.ratingLabel} · 16,367 {copy.reviewsLabel}</span></div>
+          <div><strong>{copy.lengthValue}</strong><span>{copy.lengthLabel}</span></div>
+          <div><strong>{copy.accessValue}</strong><span>{copy.accessLabel}</span></div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="quickbar" aria-label={isEs ? 'Resumen para visitantes' : 'Visitor summary'}>
+      <div class="container quickbar-inner">
+        {copy.quick.map(([title, detail]) => <div class="quick-item"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h16M12 4v16"/></svg><div><b>{title}</b><span>{detail}</span></div></div>)}
+      </div>
+    </aside>
+
+    <section class="section" id="introduccion">
+      <div class="container story-grid">
+        <div>
+          <span class="eyebrow">{copy.storyEyebrow}</span>
+          <h2>{copy.storyTitle}</h2>
+          <p>{copy.storyP1}</p>
+          <p>{copy.storyP2}</p>
+          <blockquote class="story-quote">{copy.storyQuote}</blockquote>
+        </div>
+        <figure class="image-frame">
+          <img src="/images/costanera-riverfront.jpg" alt={copy.imageAlt} width="1080" height="1350" loading="lazy" />
+          <figcaption class="image-caption">{copy.imageCaption}</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section tone-sand" id="visita">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">{copy.visitEyebrow}</span>
+          <h2>{copy.visitTitle}</h2>
+          <p>{copy.visitIntro}</p>
+        </div>
+        <div class="visit-grid">
+          {copy.cards.map(([title, detail], index) => <article class="info-card"><div class="icon">{index === 0 ? <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 3v18M17 3v18M3 7h18M3 17h18"/></svg> : index === 1 ? <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg> : <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12h18M5 12l1.5-5h11L19 12M6 12v7h12v-7"/></svg>}</div><h3>{title}</h3><p>{detail}</p></article>)}
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="historia">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">{copy.historyEyebrow}</span>
+          <h2>{copy.historyTitle}</h2>
+        </div>
+        <div class="timeline">
+          {copy.timeline.map(([period, title, detail]) => <article class="timeline-step"><span class="timeline-dot" aria-hidden="true"></span><span>{period}</span><h3>{title}</h3><p>{detail}</p></article>)}
+        </div>
+      </div>
+    </section>
+
+    <section class="section tone-sand">
+      <div class="container two-column">
+        <div>
+          <span class="eyebrow">{copy.routeEyebrow}</span>
+          <h2 class="sr-only">{copy.routeTitle}</h2>
+          <ol class="itinerary">{copy.route.map(([title, detail]) => <li><h3>{title}</h3><p>{detail}</p></li>)}</ol>
+        </div>
+        <aside class="info-panel">
+          <span class="eyebrow">{copy.routeEyebrow}</span>
+          <h2>{copy.routeTitle}</h2>
+          <div class="tip-box"><h3>{copy.localTipTitle}</h3><p>{copy.localTip}</p></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="servicios">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">{copy.servicesEyebrow}</span>
+          <h2>{copy.servicesTitle}</h2>
+          <p>{copy.servicesIntro}</p>
+        </div>
+        <div class="service-list">
+          {copy.services.map(([title, detail]) => <article class="service"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 20V9l7-5 7 5v11M9 20v-6h6v6"/></svg><div><b>{title}</b><span>{detail}</span></div></article>)}
+        </div>
+      </div>
+    </section>
+
+    <section class="transport" id="llegar">
+      <div class="container">
+        <div class="transport-header"><span class="eyebrow">{copy.transportEyebrow}</span><h2>{copy.transportTitle}</h2></div>
+        <div class="transport-grid">
+          {copy.transport.map(([title, detail], index) => <article class="transport-item">{index === 0 ? <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 16h18M5 16l2-9h10l2 9M8 7V4h8v3M7 20h.01M17 20h.01"/></svg> : index === 1 ? <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 16V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10M4 12h16M7 16v3M17 16v3M8 8h.01M16 8h.01"/></svg> : <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 16h14l-1-7H6l-1 7ZM7 16v3M17 16v3M8 12h.01M16 12h.01"/></svg>}<h3>{title}</h3><p>{detail}</p></article>)}
+        </div>
+        <p class="transport-note">{copy.transportNote} <a href="https://ciudaddecorrientes.gov.ar/content/comenzar-funcionar-el-servicio-de-colectivos-al-aeropuerto">{isEs ? 'Ver comunicación municipal.' : 'Read the municipal notice.'}</a></p>
+      </div>
+    </section>
+
+    <section class="section map-section" id="ubicacion">
+      <div class="container map-layout">
+        <div class="map-copy">
+          <span class="eyebrow">{copy.mapEyebrow}</span>
+          <h2>{copy.mapTitle}</h2>
+          <p>{copy.mapIntro}</p>
+          <p class="address"><strong>Costanera Corrientes</strong><br />Av. Costanera Gral. San Martín 3400<br />W3400 Corrientes, Argentina<br /><a href="tel:+543794474702">+54 379 447-4702</a></p>
+          <a class="button button-secondary" href="https://maps.app.goo.gl/jQSYJQGbFLBneVRq9">{copy.mapLink}</a>
+        </div>
+        <div class="map-frame"><iframe src={mapEmbed} title={isEs ? 'Mapa de Costanera Corrientes' : 'Costanera Corrientes map'} loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head"><span class="eyebrow">{copy.nearbyEyebrow}</span><h2>{copy.nearbyTitle}</h2></div>
+        <div class="nearby-grid">{copy.nearby.map(([title, detail]) => <article class="nearby-card surface"><small>{isEs ? 'Entorno de la Costanera' : 'Costanera setting'}</small><h3>{title}</h3><p>{detail}</p></article>)}</div>
+      </div>
+    </section>
+
+    <section class="food-band" id="gastronomia">
+      <div class="container food-inner">
+        <div><span class="eyebrow">{copy.foodEyebrow}</span><h2>{copy.foodTitle}</h2><p>{copy.foodText}</p></div>
+        <div class="food-types">{copy.foodTypes.map(([title, detail]) => <article class="food-type"><b>{title}</b><span>{detail}</span></article>)}</div>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="container faq-layout">
+        <div><span class="eyebrow">{copy.faqEyebrow}</span><h2>{copy.faqTitle}</h2></div>
+        <div class="faq-list">{copy.faq.map(([question, answer]) => <details><summary>{question}</summary><p>{answer}</p></details>)}</div>
+      </div>
+      <div class="container"><p class="source-note">{copy.sourceLabel}<a href="https://corrientes.tur.ar/tour/costanera-de-corrientes/">Turismo de Corrientes</a>, <a href="https://visitcorrientes.tur.ar/quehacer/paseo-por-la-costa/">Visit Corrientes</a> {isEs ? 'y' : 'and'} <a href="https://visitcorrientes.tur.ar/sobre-corrientes/">Municipalidad de la Ciudad de Corrientes</a>{copy.sourceEnd}</p></div>
+    </section>
+  </main>
+  <Footer lang={lang} />
+</BaseLayout>

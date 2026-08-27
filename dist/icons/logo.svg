@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 54" role="img" aria-labelledby="title desc">
+  <title id="title">Costanera Corrientes</title>
+  <desc id="desc">A sun rising over the Paraná River</desc>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M11 33.5C15.2 25.8 22.5 21 31 21s15.8 4.8 20 12.5" stroke="#F1B75B" stroke-width="4"/>
+    <path d="M9 38c8 2.4 14.7 2.4 22.1 0 7.2-2.4 13.6-2.4 20.9 0" stroke="#D7F0EC" stroke-width="3"/>
+    <path d="M9 44c8 2.4 14.7 2.4 22.1 0 7.2-2.4 13.6-2.4 20.9 0" stroke="#73C5BF" stroke-width="3"/>
+  </g>
+  <circle cx="31" cy="29" r="7.5" fill="#F7D48B"/>
+  <path d="M35 6.5v5M17.5 11.5l3.5 3.5M52.5 11.5 49 15" stroke="#F1B75B" stroke-width="2.5" stroke-linecap="round"/>
+  <text x="68" y="28" fill="#F8F4E9" font-family="Georgia, serif" font-size="20" letter-spacing=".2">Costanera</text>
+  <text x="69" y="45" fill="#9ED8D1" font-family="Arial, sans-serif" font-size="10" letter-spacing="2.6">CORRIENTES</text>
+</svg>

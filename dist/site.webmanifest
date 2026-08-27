@@ -1,0 +1,12 @@
+{
+  "name": "Costanera Corrientes Guide",
+  "short_name": "Costanera",
+  "icons": [
+    { "src": "/icons/favicon.svg", "sizes": "any", "type": "image/svg+xml" },
+    { "src": "/icons/favicon-32.png", "sizes": "32x32", "type": "image/png" },
+    { "src": "/icons/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ],
+  "theme_color": "#123b43",
+  "background_color": "#fbfaf6",
+  "display": "browser"
+}

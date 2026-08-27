@@ -1,0 +1,75 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  lang: 'es' | 'en';
+  path?: string;
+  image?: string;
+  noindex?: boolean;
+}
+
+const { title, description, lang, path = '/', image = '/images/costanera-bridge.jpg', noindex = false } = Astro.props;
+const canonical = Astro.site ? new URL(path, Astro.site).toString() : undefined;
+const socialImage = Astro.site ? new URL(image, Astro.site).toString() : undefined;
+const alternatePath = lang === 'es' ? (path === '/' ? '/en/' : `/en${path}`) : (path === '/en/' ? '/' : path.replace(/^\/en/, '') || '/');
+const alternate = Astro.site ? new URL(alternatePath, Astro.site).toString() : undefined;
+---
+<!doctype html>
+<html lang={lang} dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#123b43" />
+    {noindex && <meta name="robots" content="noindex,follow" />}
+    <title>{title}</title>
+    <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    {canonical && <link rel="canonical" href={canonical} />}
+    {canonical && <link rel="alternate" hreflang={lang} href={canonical} />}
+    {alternate && <link rel="alternate" hreflang={lang === 'es' ? 'en' : 'es-AR'} href={alternate} />}
+    {Astro.site && <link rel="alternate" hreflang="x-default" href={new URL('/', Astro.site).toString()} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content={lang === 'es' ? 'es_AR' : 'en_US'} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    {socialImage && <meta property="og:image" content={socialImage} />}
+    <meta name="twitter:card" content={socialImage ? 'summary_large_image' : 'summary'} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {socialImage && <meta name="twitter:image" content={socialImage} />}
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido-principal">{lang === 'es' ? 'Saltar al contenido principal' : 'Skip to main content'}</a>
+    <slot />
+    <script is:inline>
+      (() => {
+        const key = 'costanera-cookie-preferences';
+        const loadAnalytics = () => {
+          if (document.querySelector('script[data-ga4]')) return;
+          const script = document.createElement('script');
+          script.async = true;
+          script.src = 'https://www.googletagmanager.com/gtag/js?id=G-HXM22WWPKP';
+          script.dataset.ga4 = 'G-HXM22WWPKP';
+          document.head.appendChild(script);
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){window.dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-HXM22WWPKP', { anonymize_ip: true });
+        };
+        try {
+          const settings = JSON.parse(localStorage.getItem(key) || '{}');
+          if (settings.analytics === true) loadAnalytics();
+        } catch (_) {
+          // Analytics stays disabled when preferences cannot be read.
+        }
+      })();
+    </script>
+  </body>
+</html>

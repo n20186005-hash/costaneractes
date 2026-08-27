@@ -1,0 +1,30 @@
+---
+interface Props { lang: 'es' | 'en'; }
+const { lang } = Astro.props;
+const isEs = lang === 'es';
+const home = isEs ? '/' : '/en/';
+const copy = isEs ? {
+  visit: 'Visita', history: 'Historia', arrive: 'Cómo llegar', map: 'Mapa', language: 'Idioma'
+} : {
+  visit: 'Visit', history: 'History', arrive: 'Getting here', map: 'Map', language: 'Language'
+};
+---
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="logo-link" href={home} aria-label="Costanera Corrientes">
+      <img src="/icons/logo.svg" alt="Costanera Corrientes" width="220" height="54" />
+    </a>
+    <div class="nav-wrap">
+      <nav class="primary-nav" aria-label={isEs ? 'Navegación principal' : 'Primary navigation'}>
+        <a href={`${home}#visita`}>{copy.visit}</a>
+        <a href={`${home}#historia`}>{copy.history}</a>
+        <a href={`${home}#llegar`}>{copy.arrive}</a>
+        <a href={`${home}#ubicacion`}>{copy.map}</a>
+      </nav>
+      <div class="language-switcher" aria-label={copy.language}>
+        <a class:list={{ active: isEs }} href="/" lang="es">ES</a>
+        <a class:list={{ active: !isEs }} href="/en/" lang="en">EN</a>
+      </div>
+    </div>
+  </div>
+</header>

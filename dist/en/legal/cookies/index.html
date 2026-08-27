@@ -1,0 +1,58 @@
+<!DOCTYPE html><html lang="en" dir="ltr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Choose which categories of cookies the Costanera Corrientes Guide may use."><meta name="theme-color" content="#123b43"><meta name="robots" content="noindex,follow"><title>Cookie settings | Costanera Corrientes</title><link rel="icon" type="image/svg+xml" href="/icons/favicon.svg"><link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png"><link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png"><link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><meta property="og:type" content="website"><meta property="og:locale" content="en_US"><meta property="og:title" content="Cookie settings | Costanera Corrientes"><meta property="og:description" content="Choose which categories of cookies the Costanera Corrientes Guide may use."><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Cookie settings | Costanera Corrientes"><meta name="twitter:description" content="Choose which categories of cookies the Costanera Corrientes Guide may use."><link rel="stylesheet" href="/_astro/Footer.BhQjPWMb.css"></head><body><a class="skip-link" href="#contenido-principal">Skip to main content</a><header class="site-header"><div class="container header-inner"><a class="logo-link" href="/en/" aria-label="Costanera Corrientes"><img src="/icons/logo.svg" alt="Costanera Corrientes" width="220" height="54"></a><div class="nav-wrap"><nav class="primary-nav" aria-label="Primary navigation"><a href="/en/#visita">Visit</a><a href="/en/#historia">History</a><a href="/en/#llegar">Getting here</a><a href="/en/#ubicacion">Map</a></nav><div class="language-switcher" aria-label="Language"><a href="/" lang="es">ES</a><a class="active" href="/en/" lang="en">EN</a></div></div></div></header><main id="contenido-principal"><section class="legal-hero"><div class="container"><span class="eyebrow">Costanera Corrientes</span><h1>Cookie settings</h1></div></section><article class="container legal-article"><p><a class="button button-secondary" href="/en/">← Back to the guide</a></p><p class="notice"><strong>Last updated: August 2026</strong><br>Choose which categories of cookies the Costanera Corrientes Guide may use.</p><section><h2>Manage your preferences</h2><p>Choose how this website may use cookies and similar technologies. Necessary cookies remain enabled because they support basic technical operation. Analytics loads only if you activate it.</p><div class="cookie-controls" data-cookie-controls><div class="cookie-row"><div><h3>Necessary cookies <small>· Always active</small></h3><p>They are essential for basic operation, security and keeping your cookie choice.</p></div><input class="switch" type="checkbox" checked disabled aria-label="Necessary cookies"></div><div class="cookie-row"><div><h3>Analytics cookies <small>· Google Analytics 4</small></h3><p>They help us understand, in aggregate, how the site is used. Analytics does not load without your consent.</p></div><input class="switch" id="analytics" type="checkbox" aria-label="Analytics cookies"></div><div class="cookie-row"><div><h3>Preference cookies <small>· User preferences</small></h3><p>They store your cookie choice locally. They are not used to build an advertising profile.</p></div><input class="switch" type="checkbox" checked disabled aria-label="Preference cookies"></div><div class="cookie-row"><div><h3>Marketing cookies <small>· Disabled</small></h3><p>This website does not activate marketing cookies or advertising personalisation.</p></div><input class="switch" type="checkbox" disabled aria-label="Marketing cookies"></div><div class="cookie-actions"><button class="button button-primary" type="button" data-save>Save preferences</button><button class="button button-secondary" type="button" data-reject>Reject all optional cookies</button></div><p class="status-message" aria-live="polite" data-status></p></div></section></article></main><footer class="site-footer"><div class="container footer-main"><section class="footer-brand" aria-label="Costanera Corrientes Guide"><img src="/icons/logo.svg" alt="Costanera Corrientes" width="220" height="54"><p>This website is an independent, non-profit visitor information project. It is not affiliated with any government body or the official management of the attraction.</p></section><nav class="footer-column" aria-label="Explore"><h2>Explore</h2><a href="/en/#visita">Plan your visit</a><a href="/en/#historia">History &amp; landscape</a><a href="/en/#ubicacion">Location</a></nav><nav class="footer-column" aria-label="Information"><h2>Information</h2><a href="/en/legal/privacy/">Privacy policy</a><a href="/en/legal/terms/">Terms of service</a><a href="/en/legal/cookies/">Cookie settings</a></nav></div><div class="container footer-bottom"><p>Attraction information is cross-checked against public sources from the Municipality of the City of Corrientes, Visit Corrientes and the National Institute for Tourism Promotion. This guide contains no commercial recommendations.</p><p>The photographs displayed remain the property and copyright of their respective authors and are used here as local informational material. © 2026 Costanera Corrientes Guide. All rights reserved.</p></div></footer><script>(function(){const saved = "Your preferences were saved on this device.";
+const rejected = "Optional cookies were rejected on this device.";
+
+    (() => {
+      const key = 'costanera-cookie-preferences';
+      const analytics = document.querySelector('#analytics');
+      const status = document.querySelector('[data-status]');
+      const loadAnalytics = () => {
+        if (document.querySelector('script[data-ga4]')) return;
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-HXM22WWPKP';
+        script.dataset.ga4 = 'G-HXM22WWPKP';
+        document.head.appendChild(script);
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){window.dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-HXM22WWPKP', { anonymize_ip: true });
+      };
+      try {
+        const current = JSON.parse(localStorage.getItem(key) || '{}');
+        if (analytics) analytics.checked = current.analytics === true;
+      } catch (_) {}
+      document.querySelector('[data-save]')?.addEventListener('click', () => {
+        const allowAnalytics = Boolean(analytics?.checked);
+        localStorage.setItem(key, JSON.stringify({ necessary: true, preferences: true, analytics: allowAnalytics, updatedAt: new Date().toISOString() }));
+        if (allowAnalytics) loadAnalytics();
+        if (status) status.textContent = saved;
+      });
+      document.querySelector('[data-reject]')?.addEventListener('click', () => {
+        if (analytics) analytics.checked = false;
+        localStorage.setItem(key, JSON.stringify({ necessary: true, preferences: true, analytics: false, updatedAt: new Date().toISOString() }));
+        if (status) status.textContent = rejected;
+      });
+    })();
+  })();</script><script>
+      (() => {
+        const key = 'costanera-cookie-preferences';
+        const loadAnalytics = () => {
+          if (document.querySelector('script[data-ga4]')) return;
+          const script = document.createElement('script');
+          script.async = true;
+          script.src = 'https://www.googletagmanager.com/gtag/js?id=G-HXM22WWPKP';
+          script.dataset.ga4 = 'G-HXM22WWPKP';
+          document.head.appendChild(script);
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){window.dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-HXM22WWPKP', { anonymize_ip: true });
+        };
+        try {
+          const settings = JSON.parse(localStorage.getItem(key) || '{}');
+          if (settings.analytics === true) loadAnalytics();
+        } catch (_) {
+          // Analytics stays disabled when preferences cannot be read.
+        }
+      })();
+    </script></body></html>

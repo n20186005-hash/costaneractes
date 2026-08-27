@@ -1,0 +1,148 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+
+interface Props { lang: 'es' | 'en'; page: 'privacy' | 'terms' | 'cookies'; }
+const { lang, page } = Astro.props;
+const isEs = lang === 'es';
+const prefix = isEs ? '' : '/en';
+const path = `${prefix}/legal/${page}/`;
+const labels = isEs ? {
+  back: 'Volver a la guía',
+  updated: 'Última actualización: agosto de 2026',
+  privacy: 'Política de privacidad',
+  terms: 'Términos de servicio',
+  cookies: 'Configuración de cookies',
+  privacyDescription: 'Cómo la Guía Costanera Corrientes trata la información mínima necesaria para operar este sitio informativo independiente.',
+  termsDescription: 'Condiciones de uso de la Guía Costanera Corrientes, un proyecto independiente y sin fines de lucro.',
+  cookiesDescription: 'Configurá qué categorías de cookies puede usar la Guía Costanera Corrientes.',
+  privacyBlocks: [
+    ['Nuestro compromiso', 'La Guía Costanera Corrientes es un proyecto independiente y sin fines de lucro de información para visitantes. Diseñamos el sitio para recopilar la menor cantidad de datos posible y usarla únicamente para mantener, comprender y mejorar su funcionamiento.'],
+    ['Información que podemos tratar', 'Al navegar, los servicios técnicos pueden procesar información limitada, como dirección IP, tipo de navegador, páginas visitadas, fecha y hora aproximadas, identificadores de cookies y datos de diagnóstico. Si nos contactás voluntariamente por un canal que indiquemos, podremos tratar los datos incluidos en tu mensaje para responderte.'],
+    ['Cómo utilizamos la información', 'La información técnica se utiliza para entregar el sitio de forma segura, prevenir uso indebido, comprender patrones de navegación agregados cuando existe consentimiento analítico y mejorar la claridad del contenido. No vendemos datos personales ni publicamos perfiles individuales.'],
+    ['Base legal y conservación', 'Cuando corresponda, tratamos datos técnicos para el interés legítimo de operar un sitio seguro y para cumplir obligaciones legales. Las cookies analíticas solo se activan con tu elección. Conservamos información únicamente durante el tiempo razonablemente necesario para esos fines o el exigido por norma aplicable.'],
+    ['Servicios de terceros', 'El sitio incorpora Google Maps para mostrar la ubicación. Google Analytics 4 solo se carga si aceptás cookies analíticas. Estos proveedores pueden tratar información conforme a sus propias políticas; revisalas antes de utilizar sus servicios.'],
+    ['Tus derechos', 'Dependiendo de tu jurisdicción, podés solicitar acceso, rectificación, supresión, oposición o limitación del tratamiento, y presentar un reclamo ante la autoridad de protección de datos competente. También podés retirar el consentimiento de cookies analíticas en cualquier momento desde la configuración de cookies.'],
+    ['Cambios a esta política', 'Podemos actualizar esta política para reflejar cambios de funcionamiento, legales o de proveedores. La fecha mensual indicada al inicio identifica la versión vigente de este texto.']
+  ],
+  termsBlocks: [
+    ['Aceptación y alcance', 'Al acceder a este sitio aceptás utilizarlo de conformidad con estos términos. La Guía Costanera Corrientes se ofrece como material educativo y de orientación general, no como un servicio de reservas, transporte, emergencias ni asesoramiento profesional.'],
+    ['Carácter independiente', 'Este sitio es un proyecto independiente, no oficial y sin fines de lucro. No está afiliado a la Municipalidad de la Ciudad de Corrientes, a organismos turísticos, a la administración del atractivo ni a comercios locales. La mención de fuentes públicas no implica patrocinio, aprobación ni asociación.'],
+    ['Uso de la información', 'El contenido se prepara con referencias públicas y se presenta para facilitar la orientación de visitantes. Las condiciones del río, clima, accesibilidad, transporte, eventos, servicios, tarifas y normas pueden variar sin aviso. Antes de viajar o tomar decisiones importantes, verificá información relevante en canales oficiales y seguí las indicaciones en sitio.'],
+    ['Propiedad intelectual y fotografías', 'La estructura, textos originales, identidad visual y código del sitio están protegidos por las normas aplicables. Las fotografías se mantienen almacenadas localmente para la integridad técnica del sitio y pertenecen a sus respectivos autores. No reutilices imágenes ni contenido más allá de lo permitido por la ley o por sus titulares.'],
+    ['Enlaces y servicios externos', 'Los enlaces externos se incluyen como referencias. No controlamos su disponibilidad, seguridad, exactitud, prácticas de privacidad ni contenido. El uso de Google Maps, Google Analytics y otros servicios de terceros se rige por los términos de cada proveedor.'],
+    ['Limitación de responsabilidad', 'El sitio se ofrece “tal como está”, sin garantía expresa o implícita de disponibilidad, integridad, actualidad o adecuación para un propósito particular. En la medida permitida por la ley, no asumimos responsabilidad por pérdidas relacionadas con el uso o imposibilidad de uso de esta información.'],
+    ['Cambios y vigencia', 'Podemos actualizar estos términos para mantenerlos claros y acordes al funcionamiento del sitio. El uso continuado después de un cambio supone la aceptación de la versión vigente.']
+  ],
+  cookieIntro: 'Elegí cómo querés que este sitio use cookies y tecnologías similares. Las cookies necesarias permanecen activas porque permiten el funcionamiento técnico básico. La analítica se carga únicamente si la activás.',
+  necessary: ['Cookies necesarias', 'Siempre activas', 'Son esenciales para el funcionamiento básico, la seguridad y la conservación de tu elección de cookies.'],
+  analytics: ['Cookies analíticas', 'Google Analytics 4', 'Nos ayudan a comprender, de manera agregada, cómo se utiliza el sitio. La analítica no se carga sin tu consentimiento.'],
+  preferences: ['Cookies de preferencias', 'Preferencias de usuario', 'Guardan localmente tu elección de cookies. No se usan para crear un perfil publicitario.'],
+  marketing: ['Cookies de marketing', 'Desactivadas', 'Este sitio no activa cookies de marketing ni personalización publicitaria.'],
+  save: 'Guardar preferencias',
+  reject: 'Rechazar todo lo opcional',
+  saved: 'Tus preferencias se guardaron en este dispositivo.',
+  rejected: 'Se rechazaron las cookies opcionales en este dispositivo.'
+} : {
+  back: 'Back to the guide',
+  updated: 'Last updated: August 2026',
+  privacy: 'Privacy policy',
+  terms: 'Terms of service',
+  cookies: 'Cookie settings',
+  privacyDescription: 'How the Costanera Corrientes Guide handles the minimum information needed to run this independent informational website.',
+  termsDescription: 'Terms governing use of the Costanera Corrientes Guide, an independent non-profit project.',
+  cookiesDescription: 'Choose which categories of cookies the Costanera Corrientes Guide may use.',
+  privacyBlocks: [
+    ['Our commitment', 'The Costanera Corrientes Guide is an independent, non-profit visitor information project. We aim to collect the smallest amount of data possible and use it only to operate, understand and improve this website.'],
+    ['Information we may process', 'When you browse, technical services may process limited information such as IP address, browser type, pages visited, approximate date and time, cookie identifiers and diagnostic data. If you voluntarily contact us through a channel we provide, we may process information in your message to reply.'],
+    ['How we use information', 'Technical information is used to deliver the site safely, prevent misuse, understand aggregated browsing patterns where analytics consent is given and improve the clarity of content. We do not sell personal data or publish individual profiles.'],
+    ['Legal basis and retention', 'Where applicable, we process technical data for our legitimate interest in running a safe website and meeting legal obligations. Analytics cookies are activated only with your choice. We keep information only for the period reasonably necessary for those purposes or required by applicable law.'],
+    ['Third-party services', 'The site embeds Google Maps to show the location. Google Analytics 4 loads only if you accept analytics cookies. These providers may process information under their own policies; review them before using their services.'],
+    ['Your rights', 'Depending on your jurisdiction, you may request access, correction, deletion, objection or restriction of processing, and lodge a complaint with the relevant data-protection authority. You may also withdraw analytics-cookie consent at any time in Cookie settings.'],
+    ['Changes to this policy', 'We may update this policy to reflect operational, legal or provider changes. The month shown at the top identifies the current version of this text.']
+  ],
+  termsBlocks: [
+    ['Acceptance and scope', 'By accessing this website, you agree to use it in accordance with these terms. The Costanera Corrientes Guide is provided as educational and general orientation material, not as a booking, transport, emergency or professional advisory service.'],
+    ['Independent character', 'This is an independent, unofficial and non-profit project. It is not affiliated with the Municipality of the City of Corrientes, tourism bodies, the attraction’s management or local businesses. Mentioning public sources does not imply endorsement, sponsorship or association.'],
+    ['Using the information', 'Content is prepared with public references and presented to help visitors orient themselves. River conditions, weather, accessibility, transport, events, services, prices and rules can change without notice. Before travelling or making important decisions, verify relevant information through official channels and follow on-site directions.'],
+    ['Intellectual property and photographs', 'The site structure, original text, visual identity and code are protected by applicable laws. Photographs are kept locally to preserve the website’s technical integrity and remain the property of their respective authors. Do not reuse imagery or content beyond what the law or rights holders permit.'],
+    ['External links and services', 'External links are included as references. We do not control their availability, security, accuracy, privacy practices or content. Use of Google Maps, Google Analytics and other third-party services is governed by each provider’s terms.'],
+    ['Limitation of liability', 'The website is provided “as is”, with no express or implied warranty of availability, completeness, timeliness or fitness for a particular purpose. To the extent allowed by law, we accept no liability for losses connected with using or being unable to use this information.'],
+    ['Changes and validity', 'We may update these terms to keep them clear and aligned with site operation. Continued use after a change means acceptance of the current version.']
+  ],
+  cookieIntro: 'Choose how this website may use cookies and similar technologies. Necessary cookies remain enabled because they support basic technical operation. Analytics loads only if you activate it.',
+  necessary: ['Necessary cookies', 'Always active', 'They are essential for basic operation, security and keeping your cookie choice.'],
+  analytics: ['Analytics cookies', 'Google Analytics 4', 'They help us understand, in aggregate, how the site is used. Analytics does not load without your consent.'],
+  preferences: ['Preference cookies', 'User preferences', 'They store your cookie choice locally. They are not used to build an advertising profile.'],
+  marketing: ['Marketing cookies', 'Disabled', 'This website does not activate marketing cookies or advertising personalisation.'],
+  save: 'Save preferences',
+  reject: 'Reject all optional cookies',
+  saved: 'Your preferences were saved on this device.',
+  rejected: 'Optional cookies were rejected on this device.'
+};
+const config = {
+  privacy: { title: labels.privacy, description: labels.privacyDescription },
+  terms: { title: labels.terms, description: labels.termsDescription },
+  cookies: { title: labels.cookies, description: labels.cookiesDescription }
+}[page];
+---
+<BaseLayout title={`${config.title} | Costanera Corrientes`} description={config.description} lang={lang} path={path} noindex>
+  <Header lang={lang} />
+  <main id="contenido-principal">
+    <section class="legal-hero"><div class="container"><span class="eyebrow">Costanera Corrientes</span><h1>{config.title}</h1></div></section>
+    <article class="container legal-article">
+      <p><a class="button button-secondary" href={`${prefix}/`}>← {labels.back}</a></p>
+      <p class="notice"><strong>{labels.updated}</strong><br />{config.description}</p>
+      {page === 'privacy' && labels.privacyBlocks.map(([heading, text]) => <section><h2>{heading}</h2><p>{text}</p></section>)}
+      {page === 'terms' && labels.termsBlocks.map(([heading, text]) => <section><h2>{heading}</h2><p>{text}</p></section>)}
+      {page === 'cookies' && <section>
+        <h2>{isEs ? 'Gestioná tus preferencias' : 'Manage your preferences'}</h2>
+        <p>{labels.cookieIntro}</p>
+        <div class="cookie-controls" data-cookie-controls>
+          <div class="cookie-row"><div><h3>{labels.necessary[0]} <small>· {labels.necessary[1]}</small></h3><p>{labels.necessary[2]}</p></div><input class="switch" type="checkbox" checked disabled aria-label={labels.necessary[0]} /></div>
+          <div class="cookie-row"><div><h3>{labels.analytics[0]} <small>· {labels.analytics[1]}</small></h3><p>{labels.analytics[2]}</p></div><input class="switch" id="analytics" type="checkbox" aria-label={labels.analytics[0]} /></div>
+          <div class="cookie-row"><div><h3>{labels.preferences[0]} <small>· {labels.preferences[1]}</small></h3><p>{labels.preferences[2]}</p></div><input class="switch" type="checkbox" checked disabled aria-label={labels.preferences[0]} /></div>
+          <div class="cookie-row"><div><h3>{labels.marketing[0]} <small>· {labels.marketing[1]}</small></h3><p>{labels.marketing[2]}</p></div><input class="switch" type="checkbox" disabled aria-label={labels.marketing[0]} /></div>
+          <div class="cookie-actions"><button class="button button-primary" type="button" data-save>{labels.save}</button><button class="button button-secondary" type="button" data-reject>{labels.reject}</button></div>
+          <p class="status-message" aria-live="polite" data-status></p>
+        </div>
+      </section>}
+    </article>
+  </main>
+  <Footer lang={lang} />
+  {page === 'cookies' && <script is:inline define:vars={{ saved: labels.saved, rejected: labels.rejected }}>
+    (() => {
+      const key = 'costanera-cookie-preferences';
+      const analytics = document.querySelector('#analytics');
+      const status = document.querySelector('[data-status]');
+      const loadAnalytics = () => {
+        if (document.querySelector('script[data-ga4]')) return;
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-HXM22WWPKP';
+        script.dataset.ga4 = 'G-HXM22WWPKP';
+        document.head.appendChild(script);
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){window.dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-HXM22WWPKP', { anonymize_ip: true });
+      };
+      try {
+        const current = JSON.parse(localStorage.getItem(key) || '{}');
+        if (analytics) analytics.checked = current.analytics === true;
+      } catch (_) {}
+      document.querySelector('[data-save]')?.addEventListener('click', () => {
+        const allowAnalytics = Boolean(analytics?.checked);
+        localStorage.setItem(key, JSON.stringify({ necessary: true, preferences: true, analytics: allowAnalytics, updatedAt: new Date().toISOString() }));
+        if (allowAnalytics) loadAnalytics();
+        if (status) status.textContent = saved;
+      });
+      document.querySelector('[data-reject]')?.addEventListener('click', () => {
+        if (analytics) analytics.checked = false;
+        localStorage.setItem(key, JSON.stringify({ necessary: true, preferences: true, analytics: false, updatedAt: new Date().toISOString() }));
+        if (status) status.textContent = rejected;
+      });
+    })();
+  </script>}
+</BaseLayout>
