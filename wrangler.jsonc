@@ -1,0 +1,10 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "costanera-corrientes-guide",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-08-27",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS"
+  }
+}
