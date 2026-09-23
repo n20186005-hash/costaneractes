@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { siteName } from '../data/site';
 
 interface Props {
   title: string;
@@ -7,10 +8,11 @@ interface Props {
   lang: 'es' | 'en';
   path?: string;
   image?: string;
+  imageAlt?: string;
   noindex?: boolean;
 }
 
-const { title, description, lang, path = '/', image = '/images/costanera-bridge.jpg', noindex = false } = Astro.props;
+const { title, description, lang, path = '/', image = '/images/costanera-bridge.jpg', imageAlt = 'Costanera Corrientes in Corrientes, Argentina', noindex = false } = Astro.props;
 const canonical = Astro.site ? new URL(path, Astro.site).toString() : undefined;
 const socialImage = Astro.site ? new URL(image, Astro.site).toString() : undefined;
 const alternatePath = lang === 'es' ? (path === '/' ? '/en/' : `/en${path}`) : (path === '/en/' ? '/' : path.replace(/^\/en/, '') || '/');
@@ -35,11 +37,13 @@ const alternate = Astro.site ? new URL(alternatePath, Astro.site).toString() : u
     {alternate && <link rel="alternate" hreflang={lang === 'es' ? 'en' : 'es-AR'} href={alternate} />}
     {Astro.site && <link rel="alternate" hreflang="x-default" href={new URL('/', Astro.site).toString()} />}
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={siteName(lang)} />
     <meta property="og:locale" content={lang === 'es' ? 'es_AR' : 'en_US'} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     {canonical && <meta property="og:url" content={canonical} />}
     {socialImage && <meta property="og:image" content={socialImage} />}
+    {socialImage && <meta property="og:image:alt" content={imageAlt} />}
     <meta name="twitter:card" content={socialImage ? 'summary_large_image' : 'summary'} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
@@ -70,6 +74,13 @@ const alternate = Astro.site ? new URL(alternatePath, Astro.site).toString() : u
           // Analytics stays disabled when preferences cannot be read.
         }
       })();
+    </script>
+    <script is:inline>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(() => {});
+        });
+      }
     </script>
   </body>
 </html>

@@ -1,6 +1,8 @@
 # build output
 dist/
 .output/
+.dev-dist/
+.astro/
 
 # dependencies
 node_modules/
@@ -8,6 +10,8 @@ node_modules/
 
 # Wrangler local state (MUST NOT be committed - contains deploy redirects, caches, Miniflare state)
 .wrangler/
+.dev.vars
+wrangler.log
 
 # Environment variables
 .env

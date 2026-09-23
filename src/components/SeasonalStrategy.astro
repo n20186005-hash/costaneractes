@@ -1,0 +1,54 @@
+---
+interface Props { lang: 'es' | 'en'; }
+const { lang } = Astro.props;
+const isEs = lang === 'es';
+
+const copy = isEs ? {
+  eyebrow: 'Mejor época para visitar',
+  title: 'Estrategia de visita por estación',
+  intro: 'Guía general basada en el clima promedio de la cuenca del Paraná en Corrientes (promedios de 30 años). Las cifras son orientativas; confirmá las condiciones actuales con fuentes oficiales antes de viajar.',
+  cols: ['Estación', 'Temperatura habitual', 'Lluvia', 'Río y costa', 'Recomendado para', 'Consejo'],
+  rows: [
+    ['Verano (dic–feb)', '25–34 °C', 'Frecuente, tormentas vespertinas', 'Río crecido, mucha humedad', 'Paseo al atardecer, hidratarse', 'Aprovechá la brisa y evitá el mediodía; llevá agua y protector.'],
+    ['Otoño (mar–may)', '18–28 °C', 'Moderada, días templados', 'Nivel estable, buena luz', 'Caminatas largas, fotografía', 'La estación más cómoda para recorrer sin prisa.'],
+    ['Invierno (jun–ago)', '10–22 °C', 'Baja, algunas heladas débiles', 'Río más bajo, días soleados', 'Confort térmico, ciclismo', 'Madrugadas y noches frescas: llevá una capa.'],
+    ['Primavera (sep–nov)', '18–30 °C', 'Variable, vientos y lluvias', 'Sube lentamente, aves migrantes', 'Observación de aves, naturaleza', 'Clima cambiante: preparate para sol y lluvia el mismo día.']
+  ]
+} : {
+  eyebrow: 'Best time to visit',
+  title: 'Season-by-season visiting strategy',
+  intro: 'General guidance based on the average climate of the Paraná basin in Corrientes (30-year normals). Figures are indicative; confirm current conditions with official sources before travelling.',
+  cols: ['Season', 'Typical temperature', 'Rain', 'River & shore', 'Best for', 'Tip'],
+  rows: [
+    ['Summer (Dec–Feb)', '25–34 °C', 'Frequent, late-day storms', 'High river, humid', 'Sunset strolls, hydration', 'Enjoy the breeze, avoid midday; bring water and sunscreen.'],
+    ['Autumn (Mar–May)', '18–28 °C', 'Moderate, mild days', 'Stable level, good light', 'Long walks, photography', 'The most comfortable season for an unhurried visit.'],
+    ['Winter (Jun–Aug)', '10–22 °C', 'Low, occasional light frosts', 'Lower river, sunny days', 'Thermal comfort, cycling', 'Cool mornings and nights: bring a layer.'],
+    ['Spring (Sep–Nov)', '18–30 °C', 'Variable, wind and rain', 'Rises slowly, migratory birds', 'Birdwatching, nature', 'Changeable weather: prepare for sun and rain on the same day.']
+  ]
+};
+---
+
+<section class="section tone-sand" id="estacion">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">{copy.eyebrow}</span>
+      <h2>{copy.title}</h2>
+      <p>{copy.intro}</p>
+    </div>
+    <div class="table-wrap surface">
+      <table class="season-table">
+        <thead>
+          <tr>{copy.cols.map((c) => <th>{c}</th>)}</tr>
+        </thead>
+        <tbody>
+          {copy.rows.map((r) => (
+            <tr>
+              <th scope="row">{r[0]}</th>
+              {r.slice(1).map((cell) => <td>{cell}</td>)}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,89 @@
+---
+interface Props { lang: 'es' | 'en'; }
+const { lang } = Astro.props;
+const isEs = lang === 'es';
+
+const copy = isEs ? {
+  eyebrow: 'Cómo recorrerla',
+  title: 'Itinerarios según tu viaje',
+  intro: 'Tres recorridos pensados por tipo de grupo, más una propuesta genérica de medio día y día completo. Todos empiezan en la ribera y se adaptan al clima y al ritmo local.',
+  groupsTitle: 'Por tipo de grupo',
+  groups: [
+    ['Familia con niños', 'Iniciás cerca de un acceso con servicios, caminás tramos cortos con sombra, hacés pausas en plazas y espacios verdes, y volvés antes del mediodía. Priorizá descanso, hidratación y baños.'],
+    ['Fotografía y naturaleza', 'Llegás temprano o al atardecer para la luz sobre el Puente General Belgrano; recorrés Punta San Sebastián y los miradores; llevá teleobjetivo para la avifauna.'],
+    ['Bajo esfuerzo y accesible', 'Elegís el tramo pavimentado más plano, cerca de estacionamiento y bancos; evitás pendientes y bajadas al río; te sentás a observar el paisaje sin prisa.']
+  ],
+  genericTitle: 'Propuesta genérica',
+  halfTitle: 'Medio día',
+  half: [
+    ['Empezá en la Costanera Norte al fresco de la mañana.', 'Aprovechá la luz suave y las temperaturas bajas para caminar cómodo.'],
+    ['Recorré el frente de agua hasta un mirador.', 'Los miradores concentran las mejores vistas del río y del puente.'],
+    ['Pausa en un espacio verde y volvé a la sombra.', 'Cerrá el recorrido antes del mediodía para evitar el calor intenso.']
+  ],
+  fullTitle: 'Día completo',
+  full: [
+    ['Mañana: recorrido norte y Parque Cambá Cuá.', 'Uní el paseo ribereño con el área verde contigua en una sola caminata.'],
+    ['Mediodía: descanso y comida en el entorno urbano.', 'Las calles cercanas ofrecen opciones para reponer energía y resguardarte del sol.'],
+    ['Tarde: miradores y puesta de sol desde la costa.', 'La luz baja vuelve más amplio el río y resalta la silueta del puente.']
+  ]
+} : {
+  eyebrow: 'How to explore',
+  title: 'Itineraries for your trip',
+  intro: 'Three routes designed by group type, plus a generic half-day and full-day plan. All start on the riverbank and adapt to the weather and local pace.',
+  groupsTitle: 'By group type',
+  groups: [
+    ['Family with children', 'Start near an access with facilities, walk short shaded stretches, pause in plazas and green spaces, and head back before midday. Prioritise rest, hydration and restrooms.'],
+    ['Photography & nature', 'Arrive early or at sunset for the light on the General Belgrano Bridge; explore Punta San Sebastián and the lookouts; bring a telephoto lens for birdlife.'],
+    ['Low-effort & accessible', 'Choose the flattest paved stretch, close to parking and benches; avoid slopes and riverbank descents; sit back and watch the landscape at ease.']
+  ],
+  genericTitle: 'Generic plan',
+  halfTitle: 'Half day',
+  half: [
+    ['Start at the northern Costanera in the cool of the morning.', 'Make the most of soft light and lower temperatures for a relaxed walk.'],
+    ['Follow the waterfront to a lookout.', 'The lookouts gather the best views of the river and the bridge.'],
+    ['Pause in a green space and return to the shade.', 'Finish before midday to avoid the strongest heat.']
+  ],
+  fullTitle: 'Full day',
+  full: [
+    ['Morning: northern route and Parque Cambá Cuá.', 'Combine the riverfront walk with the adjoining green area in one outing.'],
+    ['Midday: rest and a meal in the urban surroundings.', 'Nearby streets offer options to recharge and shelter from the sun.'],
+    ['Afternoon: lookouts and sunset from the shore.', 'Low light opens up the river and highlights the bridge silhouette.']
+  ]
+};
+---
+
+<section class="section" id="itinerarios">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">{copy.eyebrow}</span>
+      <h2>{copy.title}</h2>
+      <p>{copy.intro}</p>
+    </div>
+
+    <h3 class="block-title">{copy.groupsTitle}</h3>
+    <div class="group-grid">
+      {copy.groups.map(([title, text]) => (
+        <article class="group-card surface">
+          <h4>{title}</h4>
+          <p>{text}</p>
+        </article>
+      ))}
+    </div>
+
+    <h3 class="block-title">{copy.genericTitle}</h3>
+    <div class="two-column">
+      <article class="itinerary-card surface">
+        <h4>{copy.halfTitle}</h4>
+        <ol class="itinerary">
+          {copy.half.map(([title, text]) => <li><h3>{title}</h3><p>{text}</p></li>)}
+        </ol>
+      </article>
+      <article class="itinerary-card surface">
+        <h4>{copy.fullTitle}</h4>
+        <ol class="itinerary">
+          {copy.full.map(([title, text]) => <li><h3>{title}</h3><p>{text}</p></li>)}
+        </ol>
+      </article>
+    </div>
+  </div>
+</section>

@@ -2,9 +2,9 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
-// Set the final production URL here when the domain is available, e.g. 'https://costaneracorrientes.ar'.
-// Keeping this blank preserves a successful build without placeholder URLs.
-const site = '';
+// Production URL. Setting this enables canonical URLs, absolute OG tags,
+// hreflang alternates, JSON-LD site URLs and the @astrojs/sitemap output.
+const site = 'https://costaneractes.com';
 
 export default defineConfig({
   site: site || undefined,

@@ -1,0 +1,49 @@
+---
+interface Props { lang: 'es' | 'en'; }
+const { lang } = Astro.props;
+const isEs = lang === 'es';
+
+const copy = isEs ? {
+  eyebrow: 'Ciencia y responsabilidad',
+  title: 'La costanera, el río y vos',
+  intro: 'Una mirada a la cuenca del Paraná y a cómo cuidar este espacio público. Información general basada en el conocimiento de la cuenca y observaciones locales; confirmá la normativa vigente con la municipalidad.',
+  cards: [
+    ['La cuenca del Paraná', 'El Paraná es uno de los ríos más largos de Sudamérica. Su caudal y color cambian con las lluvias de la cuenca alta; la costanera es apenas una franja de ese sistema vivo.'],
+    ['Fauna y vegetación', 'Garzas, biguás, carpinchos y aves migratorias usan la ribera. No alimentes ni persigas animales; respetá la vegetación y los sectores de descanso.'],
+    ['Agua y baño', 'No hay playa habilitada de forma permanente. Si una playa se habilita, seguí la señalización y las indicaciones municipales; no bebas el agua del río.'],
+    ['Sol, calor y tormentas', 'El sol sobre el río es intenso. Usá protector, sombrero y agua; ante tormentas o crecidas, alejate del borde y seguí las indicaciones.'],
+    ['Cero residuos y convivencia', 'Llevate lo que traés. Respetá a otras personas y los accesos de emergencia; el espacio es de todas y todos.'],
+    ['Conocé antes de ir', 'El clima, el nivel del río y los servicios varían. Consultá fuentes oficiales para una visita segura y responsable.']
+  ]
+} : {
+  eyebrow: 'Science & responsibility',
+  title: 'The waterfront, the river and you',
+  intro: 'A look at the Paraná basin and how to care for this public space. General information based on basin knowledge and local observations; confirm current regulations with the municipality.',
+  cards: [
+    ['The Paraná basin', 'The Paraná is among the longest rivers in South America. Its flow and colour shift with rainfall in the upper basin; the waterfront is just one strip of that living system.'],
+    ['Wildlife & vegetation', 'Herons, cormorants, capybaras and migratory birds use the shore. Do not feed or chase animals; respect plants and resting areas.'],
+    ['Water & swimming', 'There is no permanently open beach. If a beach is opened, follow signage and municipal guidance; do not drink the river water.'],
+    ['Sun, heat & storms', 'The sun over the river is strong. Use sunscreen, a hat and water; during storms or rises, step back from the edge and follow directions.'],
+    ['Zero waste & coexistence', 'Take your rubbish with you. Respect other visitors and emergency access; the space belongs to everyone.'],
+    ['Learn before you go', 'Weather, river level and services change. Check official sources for a safe, responsible visit.']
+  ]
+};
+---
+
+<section class="section" id="responsabilidad">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">{copy.eyebrow}</span>
+      <h2>{copy.title}</h2>
+      <p>{copy.intro}</p>
+    </div>
+    <div class="resp-grid">
+      {copy.cards.map(([title, text]) => (
+        <article class="resp-card surface">
+          <h4>{title}</h4>
+          <p>{text}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

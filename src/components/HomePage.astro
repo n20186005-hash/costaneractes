@@ -2,15 +2,20 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from './Header.astro';
 import Footer from './Footer.astro';
+import WeatherSection from './WeatherSection.astro';
+import SeasonalStrategy from './SeasonalStrategy.astro';
+import Itineraries from './Itineraries.astro';
+import VisitorResponsibility from './VisitorResponsibility.astro';
+import { siteName } from '../data/site';
 
 interface Props { lang: 'es' | 'en'; }
 const { lang } = Astro.props;
 const isEs = lang === 'es';
 const homePath = isEs ? '/' : '/en/';
-const pageTitle = isEs ? 'Costanera Corrientes | Guía del paseo del río Paraná' : 'Costanera Corrientes | Paraná Riverfront Guide';
+const pageTitle = siteName(lang) + (isEs ? ': km y cómo llegar' : ': length & how to get there');
 const pageDescription = isEs
-  ? 'Guía independiente y sin fines de lucro para visitar la Costanera Corrientes: historia, paseo ribereño, transporte, servicios y preguntas frecuentes.'
-  : 'An independent, non-profit guide to Costanera Corrientes: history, riverfront promenade, transport, visitor facilities and FAQs.';
+  ? '¿Cuántos kilómetros tiene la Costanera de Corrientes y cómo llegar a Av. Costanera Gral. San Martín 3400? Guía independiente con la longitud del paseo, transporte, servicios y las mejores vistas al Río Paraná.'
+  : 'How long is Costanera Corrientes and how do you get to Av. Costanera Gral. San Martín 3400? An independent guide with the promenade length, transport, facilities and the best Paraná River views.';
 
 const copy = isEs ? {
   heroKicker: 'Corrientes Capital · Argentina',
@@ -78,7 +83,8 @@ const copy = isEs ? {
   transport: [
     ['Desde el aeropuerto', 'El Aeropuerto Internacional Doctor Fernando Piragine Niveyro se sitúa fuera del centro. Un servicio diferencial aeropuerto–puerto fue anunciado por el municipio en 2022; por cambios operativos, verificá el transporte vigente antes del viaje. Taxi, remis o traslado reservado son alternativas habituales.'],
     ['En colectivo urbano', 'Las paradas y recorridos cambian con la operación local. Consultá canales municipales o el operador de transporte para identificar la línea y la parada convenientes a tu punto de acceso.'],
-    ['Taxi, remis, bici o a pie', 'Desde el centro, la costanera es accesible según el tramo elegido. Coordiná el descenso en una referencia clara, usá casco al circular en bicicleta y cruzá únicamente por sectores señalizados.']
+    ['Taxi, remis, bici o a pie', 'Desde el centro, la costanera es accesible según el tramo elegido. Coordiná el descenso en una referencia clara, usá casco al circular en bicicleta y cruzá únicamente por sectores señalizados.'],
+    ['Desde el centro de la ciudad', 'El frente costanero queda a pocos kilómetros del microcentro. Podés llegar en taxi o remis, o recorrerlo a pie o en bicicleta por las calles que descienden hacia el río, eligiendo siempre un acceso señalizado y de fácil regreso.']
   ],
   transportNote: 'Consejo de planificación: para horarios, tarifas y desvíos de transporte, verificá información actualizada con fuentes públicas de la ciudad. La nota municipal sobre el servicio al aeropuerto describe un recorrido histórico y no garantiza que siga operativo.',
   mapEyebrow: 'Ubicación',
@@ -104,14 +110,25 @@ const copy = isEs ? {
   faqEyebrow: 'Preguntas frecuentes',
   faqTitle: 'Respuestas para una visita mejor preparada.',
   faq: [
+    ['¿Dónde se encuentra la Costanera Corrientes?', 'La Costanera Corrientes se ubica sobre la Av. Costanera Gral. San Martín 3400, a la vera del río Paraná, en la ciudad de Corrientes, provincia de Corrientes, Argentina.'],
     ['¿La Costanera Corrientes tiene entrada?', 'El paseo general se desarrolla en espacio público y no tiene una entrada general. Sin embargo, actividades, playas habilitadas o eventos pueden establecer condiciones particulares.'],
     ['¿Cuánto tiempo conviene reservar?', 'Entre una hora y media y tres horas permite caminar con pausas, observar el río y conectar con los espacios cercanos. El tiempo real depende del tramo elegido, el clima y tu movilidad.'],
     ['¿Cuál es el mejor horario?', 'El atardecer es popular por la luz sobre el Paraná y temperaturas habitualmente más amables. Para una visita tranquila, también puede resultar conveniente una franja matinal.'],
     ['¿Hay estacionamiento y baños?', 'Existen opciones urbanas de estacionamiento en el entorno, sujetas a señalización. Los baños y otros servicios no deben asumirse disponibles en todos los tramos; verificá en sitio.'],
-    ['¿Puedo llegar desde el aeropuerto en transporte público?', 'El municipio comunicó un servicio diferencial en 2022, pero los recorridos pueden modificarse o suspenderse. Confirmá la situación actual antes de planificar y contemplá taxi, remis o traslado reservado.']
+    ['¿Puedo llegar desde el aeropuerto en transporte público?', 'El municipio comunicó un servicio diferencial en 2022, pero los recorridos pueden modificarse o suspenderse. Confirmá la situación actual antes de planificar y contemplá taxi, remis o traslado reservado.'],
+    ['¿Cuántos kilómetros tiene la Costanera de Corrientes?', 'El tramo conocido como Costanera Norte, sobre la Av. Costanera Gral. San Martín, se desarrolla a lo largo de aproximadamente 2,5 km. En 2008 se sumó la extensión Juan Pablo II (unos 900 m más), por lo que el frente ribereño continuo que puede recorrerse a pie alcanza cerca de 3,4 km. Playas, accesos y senderos varían según el tramo.'],
+    ['¿Cómo llegar a la Costanera de Corrientes?', 'La referencia es Av. Costanera Gral. San Martín 3400, a la vera del Río Paraná. Desde el centro de la ciudad está a pocos kilómetros y puede llegarse en taxi, remis o bicicleta; desde el aeropuerto y la terminal de ómnibus lo más común es taxi, remis o traslado reservado. Confirmá las líneas de colectivo urbano con fuentes municipales antes de viajar.']
   ],
   sourceLabel: 'Fuentes públicas para profundizar: ',
   sourceEnd: '. Esta guía las resume con fines educativos y recomienda confirmar cambios operativos antes de viajar.',
+  sourcesEyebrow: 'Fuentes verificadas',
+  sourcesTitle: 'Fuentes y referencias oficiales',
+  sources: [
+    ['Turismo de Corrientes', 'https://corrientes.tur.ar/tour/costanera-de-corrientes/'],
+    ['Visit Corrientes', 'https://visitcorrientes.tur.ar/quehacer/paseo-por-la-costa/'],
+    ['Municipalidad de la Ciudad de Corrientes', 'https://visitcorrientes.tur.ar/sobre-corrientes/']
+  ],
+  sourcesNote: 'Esta guía contrasta la información del atractivo con fuentes públicas y recomienda confirmar los cambios operativos antes de viajar.',
   schemaDescription: 'Paseo ribereño público sobre el río Paraná en Corrientes Capital, Argentina.'
 } : {
   heroKicker: 'Corrientes Capital · Argentina',
@@ -179,7 +196,8 @@ const copy = isEs ? {
   transport: [
     ['From the airport', 'Doctor Fernando Piragine Niveyro International Airport is outside the city centre. The municipality announced a dedicated airport–port bus in 2022; because services can change, check current transport before travelling. Taxi, remis or a pre-booked transfer are common alternatives.'],
     ['By city bus', 'Stops and routes change with local operations. Consult municipal channels or the local operator to identify the route and stop best suited to your chosen access point.'],
-    ['Taxi, remis, bike or on foot', 'From the centre, the Costanera is reachable depending on the section you choose. Arrange drop-off at a clear landmark, use a helmet when cycling and cross only at marked locations.']
+    ['Taxi, remis, bike or on foot', 'From the centre, the Costanera is reachable depending on the section you choose. Arrange drop-off at a clear landmark, use a helmet when cycling and cross only at marked locations.'],
+    ['From the city centre', 'The riverfront sits a few kilometres from the downtown core. You can reach it by taxi or remis, or walk or cycle down the streets that lead to the river, always choosing a signed access point with an easy way back.']
   ],
   transportNote: 'Planning note: check current public city sources for timetables, fares and diversions. The municipal airport-service notice documents a historical route and does not guarantee present operation.',
   mapEyebrow: 'Location',
@@ -205,14 +223,25 @@ const copy = isEs ? {
   faqEyebrow: 'Frequently asked questions',
   faqTitle: 'Answers for a better prepared visit.',
   faq: [
+    ['Where is Costanera Corrientes located?', 'Costanera Corrientes is located at Av. Costanera Gral. San Martín 3400, along the Paraná River, in the city of Corrientes, Corrientes Province, Argentina.'],
     ['Is there an entrance fee for Costanera Corrientes?', 'The general promenade is public space and has no general admission fee. Activities, open beaches or events may set specific conditions.'],
     ['How much time should I allow?', 'Allowing between one and a half and three hours lets you walk, pause, observe the river and connect with nearby spaces. Actual time depends on the stretch, weather and mobility.'],
     ['What is the best time to visit?', 'Sunset is popular for light on the Paraná and typically gentler temperatures. A morning visit can also be a quieter choice.'],
     ['Are parking and restrooms available?', 'There are urban parking options nearby, subject to signs. Restrooms and other facilities should not be assumed across every stretch; verify on site.'],
-    ['Can I use public transport from the airport?', 'The municipality reported a dedicated service in 2022, but routes may change or be discontinued. Confirm the current position before planning and consider taxi, remis or a pre-booked transfer.']
+    ['Can I use public transport from the airport?', 'The municipality reported a dedicated service in 2022, but routes may change or be discontinued. Confirm the current position before planning and consider taxi, remis or a pre-booked transfer.'],
+    ['How long is Costanera Corrientes?', 'The stretch known as Costanera Norte, along Avenida Costanera General San Martín, runs for about 2.5 km. In 2008 the Juan Pablo II extension added roughly 900 m, so the continuous riverside front you can walk is close to 3.4 km. Beaches, access points and paths vary by section.'],
+    ['How do I get to Costanera Corrientes?', 'The reference point is Av. Costanera Gral. San Martín 3400, on the bank of the Paraná River. It is a few kilometres from the city centre and reachable by taxi, remis or bicycle; from the airport and bus terminal, taxi, remis or a pre-booked transfer are the usual options. Check current city bus lines with municipal sources before travelling.']
   ],
   sourceLabel: 'Public sources for further reading: ',
   sourceEnd: '. This guide summarises them for educational purposes and recommends confirming operational changes before travelling.',
+  sourcesEyebrow: 'Verified sources',
+  sourcesTitle: 'Official sources & references',
+  sources: [
+    ['Turismo de Corrientes', 'https://corrientes.tur.ar/tour/costanera-de-corrientes/'],
+    ['Visit Corrientes', 'https://visitcorrientes.tur.ar/quehacer/paseo-por-la-costa/'],
+    ['Municipality of the City of Corrientes', 'https://visitcorrientes.tur.ar/sobre-corrientes/']
+  ],
+  sourcesNote: 'This guide cross-checks attraction information against public sources and recommends confirming operational changes before travelling.',
   schemaDescription: 'Public riverfront promenade on the Paraná River in Corrientes Capital, Argentina.'
 };
 
@@ -220,8 +249,9 @@ const placeUrl = Astro.site ? new URL(homePath, Astro.site).toString() : undefin
 const attractionSchema = {
   '@context': 'https://schema.org',
   '@type': ['TouristAttraction', 'LocalBusiness'],
+  '@id': 'https://costaneractes.com/#attraction',
   name: 'Costanera Corrientes',
-  alternateName: 'Costanera General San Martín',
+  alternateName: ['Costanera General San Martín', 'Costanera de Corrientes', 'Paseo Costanera Corrientes'],
   description: copy.schemaDescription,
   ...(placeUrl ? { url: placeUrl } : {}),
   image: placeUrl ? [new URL('/images/costanera-bridge.jpg', Astro.site).toString()] : undefined,
@@ -239,6 +269,11 @@ const attractionSchema = {
     latitude: -27.465140576322273,
     longitude: -58.850583022788314
   },
+  hasMap: 'https://maps.app.goo.gl/jQSYJQGbFLBneVRq9',
+  sameAs: [
+    'https://maps.app.goo.gl/jQSYJQGbFLBneVRq9',
+    'https://corrientes.tur.ar/tour/costanera-de-corrientes/'
+  ],
   openingHoursSpecification: {
     '@type': 'OpeningHoursSpecification',
     dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
@@ -249,7 +284,7 @@ const attractionSchema = {
   aggregateRating: {
     '@type': 'AggregateRating',
     ratingValue: '4.7',
-    reviewCount: '16367',
+    reviewCount: '16422',
     bestRating: '5'
   }
 };
@@ -264,12 +299,12 @@ const faqSchema = {
 };
 const mapEmbed = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6296.6415473703!2d-58.850583022788314!3d-27.465140576322273!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94456cb759536285%3A0x9405d9e6bbb5b145!2sCostanera%20Corrientes!5e1!3m2!1ses-419!2ses-419!4v1787796114936!5m2!1ses-419!2ses-419';
 ---
-<BaseLayout title={pageTitle} description={pageDescription} lang={lang} path={homePath}>
+<BaseLayout title={pageTitle} description={pageDescription} lang={lang} path={homePath} imageAlt="Costanera Corrientes along the Paraná River in Corrientes, Argentina">
   <script is:inline type="application/ld+json" set:html={JSON.stringify([attractionSchema, faqSchema])}></script>
   <Header lang={lang} />
   <main id="contenido-principal">
     <section class="hero" aria-labelledby="hero-title">
-      <img class="hero-media" src="/images/costanera-bridge.jpg" alt="" width="1080" height="1350" fetchpriority="high" />
+      <img class="hero-media" src="/images/costanera-bridge.jpg" alt="Costanera Corrientes - Main view of the Paraná River waterfront in Corrientes, Argentina" width="1080" height="1350" fetchpriority="high" />
       <div class="container hero-content">
         <div class="hero-kicker">
           <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-5.2 7-12a7 7 0 1 0-14 0c0 6.8 7 12 7 12Z"/><circle cx="12" cy="9" r="2.2"/></svg>
@@ -282,7 +317,7 @@ const mapEmbed = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6296.641
           <a class="button button-ghost" href="#historia">{copy.explore}</a>
         </div>
         <div class="hero-facts" aria-label={isEs ? 'Datos destacados' : 'Highlights'}>
-          <div><strong>4.7 / 5</strong><span>{copy.ratingLabel} · 16,367 {copy.reviewsLabel}</span></div>
+          <div><strong>4.7 / 5</strong><span>{copy.ratingLabel} · 16,422 {copy.reviewsLabel}</span></div>
           <div><strong>{copy.lengthValue}</strong><span>{copy.lengthLabel}</span></div>
           <div><strong>{copy.accessValue}</strong><span>{copy.accessLabel}</span></div>
         </div>
@@ -294,6 +329,8 @@ const mapEmbed = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6296.641
         {copy.quick.map(([title, detail]) => <div class="quick-item"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h16M12 4v16"/></svg><div><b>{title}</b><span>{detail}</span></div></div>)}
       </div>
     </aside>
+
+    <WeatherSection lang={lang} />
 
     <section class="section" id="introduccion">
       <div class="container story-grid">
@@ -336,6 +373,8 @@ const mapEmbed = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6296.641
       </div>
     </section>
 
+    <SeasonalStrategy lang={lang} />
+
     <section class="section tone-sand">
       <div class="container two-column">
         <div>
@@ -350,6 +389,8 @@ const mapEmbed = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6296.641
         </aside>
       </div>
     </section>
+
+    <Itineraries lang={lang} />
 
     <section class="section" id="servicios">
       <div class="container">
@@ -401,12 +442,23 @@ const mapEmbed = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6296.641
       </div>
     </section>
 
+    <VisitorResponsibility lang={lang} />
+
     <section class="section" id="faq">
       <div class="container faq-layout">
         <div><span class="eyebrow">{copy.faqEyebrow}</span><h2>{copy.faqTitle}</h2></div>
         <div class="faq-list">{copy.faq.map(([question, answer]) => <details><summary>{question}</summary><p>{answer}</p></details>)}</div>
       </div>
-      <div class="container"><p class="source-note">{copy.sourceLabel}<a href="https://corrientes.tur.ar/tour/costanera-de-corrientes/">Turismo de Corrientes</a>, <a href="https://visitcorrientes.tur.ar/quehacer/paseo-por-la-costa/">Visit Corrientes</a> {isEs ? 'y' : 'and'} <a href="https://visitcorrientes.tur.ar/sobre-corrientes/">Municipalidad de la Ciudad de Corrientes</a>{copy.sourceEnd}</p></div>
+    </section>
+
+    <section class="section sources-section" id="fuentes">
+      <div class="container">
+        <div class="section-head"><span class="eyebrow">{copy.sourcesEyebrow}</span><h2>{copy.sourcesTitle}</h2></div>
+        <ul class="sources-list">
+          {copy.sources.map(([name, url]) => <li><a href={url} target="_blank" rel="noopener noreferrer">{name}</a></li>)}
+        </ul>
+        <p class="source-note">{copy.sourcesNote}</p>
+      </div>
     </section>
   </main>
   <Footer lang={lang} />
