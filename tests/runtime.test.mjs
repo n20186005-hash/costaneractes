@@ -42,6 +42,19 @@ test('actual offline worker: weather bypasses cache; offline assets retained, fa
 });
 
 test('localized error targets match actual Astro output files',async()=>{
- const assets={ASSETS:{fetch:async request=>{const path=new URL(request.url).pathname;const file='dist'+path+(path.endsWith('/')?'index.html':'');return fs.existsSync(file)?new Response(fs.readFileSync(file),{headers:{'Content-Type':'text/html'}}):new Response('not an asset',{status:404});}}};
+ const assets={ASSETS:{fetch:async request=>{const path=new URL(request.url).pathname;const file=path==='/404'?'dist/404.html':'dist'+path+(path.endsWith('/')?'index.html':'');return fs.existsSync(file)?new Response(fs.readFileSync(file),{headers:{'Content-Type':'text/html'}}):new Response('not an asset',{status:404});}}};
  for(const path of ['/unknown','/404.html','/404/','/en/unknown','/en/404.html']){const response=await worker.fetch(new Request('https://costaneractes.com'+path),assets);assert.equal(response.status,404);assert.match(await response.text(),path.startsWith('/en/')?/Page not found/:/Página no encontrada/);}
+});
+
+test('native Assets canonical redirect boundary returns localized nonempty errors without Location',async()=>{
+ const calls=[];const assets={ASSETS:{fetch:async request=>{const path=new URL(request.url).pathname;calls.push({path,method:request.method});
+  if(['/404.html','/404/'].includes(path))return new Response(null,{status:301,headers:{Location:'/404'}});
+  if(path==='/404'||path==='/en/404/')return new Response(request.method==='HEAD'?null:fs.readFileSync(path==='/404'?'dist/404.html':'dist/en/404/index.html'),{headers:{'Content-Type':'text/html; charset=utf-8','Location':'/must-not-leak'}});
+  return new Response(null,{status:404});
+ }}};
+ for(const path of ['/missing?x=1','/404','/404/','/404.html','/en/missing?x=1','/en/404','/en/404/','/en/404.html']){
+  let response=await worker.fetch(new Request('https://costaneractes.com'+path),assets);assert.equal(response.status,404);assert.equal(response.headers.get('Location'),null);assert.equal(response.headers.get('X-Robots-Tag'),'noindex');assert.match(await response.text(),path.startsWith('/en/')?/Page not found/:/Página no encontrada/);
+  response=await worker.fetch(new Request('https://costaneractes.com'+path,{method:'HEAD'}),assets);assert.equal(response.status,404);assert.equal(response.headers.get('Location'),null);assert.equal(response.headers.get('X-Robots-Tag'),'noindex');assert.equal(await response.text(),'');
+ }
+ assert.ok(calls.some(call=>call.path==='/404'&&call.method==='GET'));
 });
