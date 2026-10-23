@@ -1,5 +1,4 @@
 ---
-import { COORDS, buildUrl, transform } from '../lib/weather';
 
 interface Props { lang: 'es' | 'en'; }
 const { lang } = Astro.props;
@@ -7,8 +6,8 @@ const isEs = lang === 'es';
 
 const L = isEs ? {
   eyebrow: 'Clima en la costanera',
-  title: 'Clima actual y pronóstico',
-  intro: 'Condiciones en la ribera del Paraná y sugerencias prácticas para preparar la visita.',
+  title: 'Pronóstico para la costanera',
+  intro: 'Estimación de modelo, no observación en el paseo ni aviso oficial. No informa nivel del río, calidad del agua, habilitación para baño ni disponibilidad de excursiones.',
   now: 'Ahora',
   feels: 'Sensación',
   rainToday: 'Lluvia hoy',
@@ -18,7 +17,7 @@ const L = isEs ? {
   forecast: 'Pronóstico a 7 días',
   updated: 'Actualizado',
   riskTitle: 'Avisos para hoy',
-  riskNone: 'Sin avisos especiales para hoy.',
+  riskNone: 'Sin recomendaciones adicionales del modelo; no confirma ausencia de alertas oficiales.',
   outfitTitle: 'Vestimenta',
   planTitle: 'Cómo disfrutarlo',
   itemsTitle: 'Para llevar',
@@ -26,8 +25,8 @@ const L = isEs ? {
   loading: 'Cargando pronóstico…',
 } : {
   eyebrow: 'Weather on the waterfront',
-  title: 'Current weather & forecast',
-  intro: 'Conditions along the Paraná riverbank and practical suggestions to plan your visit.',
+  title: 'Waterfront weather forecast',
+  intro: 'Model estimate, not an on-site observation or official warning. It does not report river level, water quality, swimming permission or excursion availability.',
   now: 'Now',
   feels: 'Feels like',
   rainToday: 'Rain today',
@@ -37,7 +36,7 @@ const L = isEs ? {
   forecast: '7-day forecast',
   updated: 'Updated',
   riskTitle: 'Advisories for today',
-  riskNone: 'No special advisories for today.',
+  riskNone: 'No additional model recommendations; this does not establish an absence of official warnings.',
   outfitTitle: 'What to wear',
   planTitle: 'How to enjoy it',
   itemsTitle: 'What to bring',
@@ -45,17 +44,9 @@ const L = isEs ? {
   loading: 'Loading forecast…',
 };
 
-// Server-side fetch at build time (short timeout). Never blocks the build.
-let initial = null;
-try {
-  const ctrl = new AbortController();
-  const timer = setTimeout(() => ctrl.abort(), 3000);
-  const res = await fetch(buildUrl(COORDS.lat, COORDS.lon), { signal: ctrl.signal });
-  clearTimeout(timer);
-  if (res.ok) initial = transform(await res.json(), lang);
-} catch (_) {
-  initial = null;
-}
+// Forecast is fetched at runtime; a deployed page must not present a frozen build-time snapshot.
+const initial = null;
+
 ---
 
 <section class="section weather-section" id="clima" data-lang={lang} data-labels={JSON.stringify(L)} data-initial={initial ? JSON.stringify(initial) : ''}>
@@ -65,6 +56,7 @@ try {
       <h2>{L.title}</h2>
       <p>{L.intro}</p>
     </div>
+    <p><a href="https://open-meteo.com/">Open-Meteo</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p>
     <div class="weather-grid">
       <div class="weather-now" id="weather-now">
         <p class="weather-loading">{L.loading}</p>
@@ -93,8 +85,8 @@ try {
     const lc = lang === 'es' ? 'es-AR' : 'en-US';
 
     const fmtDay = (iso) => {
-      const d = new Date(iso + 'T00:00:00');
-      return new Intl.DateTimeFormat(lc, { weekday: 'short' }).format(d);
+      const d = new Date(iso + 'T12:00:00-03:00');
+      return new Intl.DateTimeFormat(lc, { weekday: 'short', timeZone: 'America/Argentina/Cordoba' }).format(d);
     };
 
     const li = (txt) => '<li>' + txt + '</li>';
@@ -123,7 +115,10 @@ try {
     }
 
     function render(p) {
-      if (!p || !p.current) return;
+      const finite = value => typeof value === 'number' && Number.isFinite(value);
+      if (!p?.current || !['temp','feels','humidity','wind','uv'].every(k => finite(p.current[k])) ||
+          !Array.isArray(p.daily) || !p.daily.length || !p.daily.every(d => ['tmax','tmin','precipProb'].every(k => finite(d[k])) && /^\d{4}-\d{2}-\d{2}$/.test(d.date)) ||
+          !Number.isFinite(Date.parse(p.updated))) throw new Error('Invalid weather payload');
       nowEl.innerHTML =
         '<div class="now-card">' +
           '<div class="now-temp"><span class="now-icon">' + p.current.icon + '</span><strong>' + p.current.temp + '°</strong></div>' +
@@ -148,14 +143,16 @@ try {
       ).join('') + '</div>';
       renderAdvice(p.advice);
       if (upEl && p.updated) {
-        upEl.textContent = L.updated + ': ' + new Date(p.updated).toLocaleString(lc);
+        upEl.textContent = L.updated + ': ' + new Date(p.updated).toLocaleString(lc, { timeZone: 'America/Argentina/Cordoba' }) + ' · UTC−3';
         upEl.hidden = false;
       }
     }
 
     function fail() {
       nowEl.innerHTML = '<div class="now-card"><p class="weather-loading">' + L.loadError + '</p></div>';
+      fcEl.textContent = L.loadError;
       advEl.hidden = true;
+      upEl.hidden = true;
     }
 
     const raw = section.getAttribute('data-initial');
@@ -163,7 +160,7 @@ try {
     if (raw) {
       try { render(JSON.parse(raw)); didInitial = true; } catch (_) {}
     }
-    fetch('/api/weather?lang=' + lang)
+    fetch('/api/weather?lang=' + lang, { signal: AbortSignal.timeout(10000), cache: 'no-store' })
       .then((r) => { if (!r.ok) throw new Error('bad'); return r.json(); })
       .then(render)
       .catch(() => { if (!didInitial) fail(); });

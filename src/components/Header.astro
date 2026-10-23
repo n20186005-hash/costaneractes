@@ -3,6 +3,7 @@ interface Props { lang: 'es' | 'en'; }
 const { lang } = Astro.props;
 const isEs = lang === 'es';
 const home = isEs ? '/' : '/en/';
+const topic = Astro.url.pathname.replace(/^\/en(?=\/|$)/, '') || '/';
 const copy = isEs ? {
   visit: 'Visita', history: 'Historia', arrive: 'Cómo llegar', map: 'Mapa', language: 'Idioma'
 } : {
@@ -22,8 +23,8 @@ const copy = isEs ? {
         <a href={`${home}#ubicacion`}>{copy.map}</a>
       </nav>
       <div class="language-switcher" aria-label={copy.language}>
-        <a class:list={{ active: isEs }} href="/" lang="es">ES</a>
-        <a class:list={{ active: !isEs }} href="/en/" lang="en">EN</a>
+        <a class:list={{ active: isEs }} href={topic} lang="es">ES</a>
+        <a class:list={{ active: !isEs }} href={topic === "/" ? "/en/" : `/en${topic}`} lang="en">EN</a>
       </div>
     </div>
   </div>

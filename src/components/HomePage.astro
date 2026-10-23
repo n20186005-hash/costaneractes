@@ -6,26 +6,25 @@ import WeatherSection from './WeatherSection.astro';
 import SeasonalStrategy from './SeasonalStrategy.astro';
 import Itineraries from './Itineraries.astro';
 import VisitorResponsibility from './VisitorResponsibility.astro';
-import { siteName } from '../data/site';
 
 interface Props { lang: 'es' | 'en'; }
 const { lang } = Astro.props;
 const isEs = lang === 'es';
 const homePath = isEs ? '/' : '/en/';
-const pageTitle = siteName(lang) + (isEs ? ': km y cómo llegar' : ': length & how to get there');
+const pageTitle = isEs ? 'Costanera de Corrientes: kilómetros, mapa y visita' : 'Costanera Corrientes: length, map and visitor guide';
 const pageDescription = isEs
   ? '¿Cuántos kilómetros tiene la Costanera de Corrientes y cómo llegar a Av. Costanera Gral. San Martín 3400? Guía independiente con la longitud del paseo, transporte, servicios y las mejores vistas al Río Paraná.'
   : 'How long is Costanera Corrientes and how do you get to Av. Costanera Gral. San Martín 3400? An independent guide with the promenade length, transport, facilities and the best Paraná River views.';
 
 const copy = isEs ? {
   heroKicker: 'Corrientes Capital · Argentina',
-  heroTitle: 'Donde la ciudad se encuentra con el Paraná.',
+  heroTitle: 'Costanera de Corrientes, junto al Paraná.',
   heroIntro: 'Un paseo ribereño de escala urbana, con miradores, espacios verdes, playas y una escena cotidiana que cambia con la luz del río.',
   plan: 'Planificá tu visita',
   explore: 'Explorar el paseo',
-  ratingLabel: 'valoración de visitantes',
+  ratingLabel: 'Google Maps · 23 oct 2026',
   reviewsLabel: 'reseñas en el perfil del lugar',
-  lengthLabel: 'Costanera Norte',
+  lengthLabel: 'General San Martín (Norte)',
   lengthValue: '2,5 km',
   accessLabel: 'acceso general',
   accessValue: 'sin entrada',
@@ -37,11 +36,11 @@ const copy = isEs ? {
   ],
   storyEyebrow: 'Un frente de agua con memoria',
   storyTitle: 'La Costanera es una forma de mirar la ciudad.',
-  storyP1: 'A la orilla del río Paraná, la Costanera General San Martín articula el horizonte abierto con plazas, áreas recreativas y sectores de descanso. Es uno de los espacios urbanos más representativos de Corrientes Capital y un punto habitual de encuentro para residentes y visitantes.',
-  storyP2: 'La Costanera Norte se desarrolló entre 1929 y 1954 y se extiende aproximadamente 2,5 kilómetros. Junto a su continuidad peatonal aparecen puntos reconocibles como Punta San Sebastián, Punta Tacuara y el parque Cambá Cuá, además de vistas hacia el Puente General Belgrano.',
+  storyP1: 'En Corrientes Capital, a la orilla del río Paraná, la Costanera General San Martín articula el horizonte abierto con plazas, áreas recreativas y sectores de descanso. Es uno de los espacios urbanos más representativos de Corrientes Capital y un punto habitual de encuentro para residentes y visitantes.',
+  storyP2: 'La General San Martín (Norte) se desarrolló entre 1929 y 1954 y se extiende aproximadamente 2,5 kilómetros. Junto a su continuidad peatonal aparecen puntos reconocibles como Punta San Sebastián, Punta Tacuara y el parque Cambá Cuá, además de vistas hacia el Puente General Belgrano.',
   storyQuote: 'No es un recinto ni una excursión cerrada: es un borde urbano vivo, pensado para recorrer con atención al río, al clima y al ritmo local.',
-  imageAlt: 'Vista del río Paraná y el Puente General Belgrano desde la costanera',
-  imageCaption: 'El río Paraná y el Puente General Belgrano forman parte del paisaje visual del paseo.',
+  imageAlt: 'Ilustración conceptual de un río y el sol, no fotografía ni mapa',
+  imageCaption: 'Ilustración conceptual del río; no representa las condiciones actuales del paseo.',
   visitEyebrow: 'Información práctica',
   visitTitle: 'Antes de salir: lo esencial.',
   visitIntro: 'Este es un paseo público exterior. La experiencia cambia según la hora, la temperatura, el nivel del río y los eventos; la información específica de balnearios o actividades debe confirmarse mediante canales oficiales.',
@@ -53,7 +52,7 @@ const copy = isEs ? {
   historyEyebrow: 'Historia del paseo',
   historyTitle: 'Obra, expansión y orilla.',
   timeline: [
-    ['1929–1954', 'Construcción de la Costanera Norte', 'El tramo asociado a la avenida General San Martín se consolidó durante estas décadas como una obra urbana sobre la ribera.'],
+    ['1929–1954', 'Construcción de la General San Martín (Norte)', 'El tramo asociado a la avenida General San Martín se consolidó durante estas décadas como una obra urbana sobre la ribera.'],
     ['2008', 'Extensión Juan Pablo II', 'La ciudad incorporó aproximadamente 900 metros adicionales de costanera, ampliando el continuo recreativo frente al río.'],
     ['Hoy', 'Un paisaje compartido', 'El conjunto conecta tramos de paseo, playas, áreas verdes, monumentos, puntos panorámicos y encuentros cotidianos.']
   ],
@@ -61,7 +60,7 @@ const copy = isEs ? {
   routeTitle: 'Un paseo atento, no una carrera.',
   route: [
     ['Empezá con el río', 'Elegí un acceso próximo a la avenida Costanera General San Martín y tomá unos minutos para orientarte: el viento, la luz y el flujo de personas definen el ritmo.'],
-    ['Caminá por la ribera', 'SeguÍ el frente de agua a tu propio paso. El valor del recorrido está en los cambios de perspectiva: arbolado, gradas, puntos de descanso y el horizonte del Paraná.'],
+    ['Caminá por la ribera', 'Seguí el frente de agua a tu propio paso. El valor del recorrido está en los cambios de perspectiva: arbolado, gradas, puntos de descanso y el horizonte del Paraná.'],
     ['Sumá una pausa verde', 'El parque Cambá Cuá y los espacios cercanos ofrecen una transición entre la costanera y el tejido de la ciudad. Respetá el mobiliario, las áreas de juego y el descanso de otras personas.'],
     ['Cerrá al atardecer', 'La luz baja vuelve más visible la amplitud del río y la silueta del puente. Después de oscurecer, priorizá sectores iluminados y transitados.']
   ],
@@ -84,7 +83,7 @@ const copy = isEs ? {
     ['Desde el aeropuerto', 'El Aeropuerto Internacional Doctor Fernando Piragine Niveyro se sitúa fuera del centro. Un servicio diferencial aeropuerto–puerto fue anunciado por el municipio en 2022; por cambios operativos, verificá el transporte vigente antes del viaje. Taxi, remis o traslado reservado son alternativas habituales.'],
     ['En colectivo urbano', 'Las paradas y recorridos cambian con la operación local. Consultá canales municipales o el operador de transporte para identificar la línea y la parada convenientes a tu punto de acceso.'],
     ['Taxi, remis, bici o a pie', 'Desde el centro, la costanera es accesible según el tramo elegido. Coordiná el descenso en una referencia clara, usá casco al circular en bicicleta y cruzá únicamente por sectores señalizados.'],
-    ['Desde el centro de la ciudad', 'El frente costanero queda a pocos kilómetros del microcentro. Podés llegar en taxi o remis, o recorrerlo a pie o en bicicleta por las calles que descienden hacia el río, eligiendo siempre un acceso señalizado y de fácil regreso.']
+    ['Desde el centro de la ciudad', 'Elegí tu tramo y calculá la distancia real desde el punto de partida. Podés llegar en taxi o remis, o recorrerlo a pie o en bicicleta por las calles que descienden hacia el río, eligiendo siempre un acceso señalizado y de fácil regreso.']
   ],
   transportNote: 'Consejo de planificación: para horarios, tarifas y desvíos de transporte, verificá información actualizada con fuentes públicas de la ciudad. La nota municipal sobre el servicio al aeropuerto describe un recorrido histórico y no garantiza que siga operativo.',
   mapEyebrow: 'Ubicación',
@@ -116,7 +115,7 @@ const copy = isEs ? {
     ['¿Cuál es el mejor horario?', 'El atardecer es popular por la luz sobre el Paraná y temperaturas habitualmente más amables. Para una visita tranquila, también puede resultar conveniente una franja matinal.'],
     ['¿Hay estacionamiento y baños?', 'Existen opciones urbanas de estacionamiento en el entorno, sujetas a señalización. Los baños y otros servicios no deben asumirse disponibles en todos los tramos; verificá en sitio.'],
     ['¿Puedo llegar desde el aeropuerto en transporte público?', 'El municipio comunicó un servicio diferencial en 2022, pero los recorridos pueden modificarse o suspenderse. Confirmá la situación actual antes de planificar y contemplá taxi, remis o traslado reservado.'],
-    ['¿Cuántos kilómetros tiene la Costanera de Corrientes?', 'El tramo conocido como Costanera Norte, sobre la Av. Costanera Gral. San Martín, se desarrolla a lo largo de aproximadamente 2,5 km. En 2008 se sumó la extensión Juan Pablo II (unos 900 m más), por lo que el frente ribereño continuo que puede recorrerse a pie alcanza cerca de 3,4 km. Playas, accesos y senderos varían según el tramo.'],
+    ['¿Cuántos kilómetros tiene la Costanera de Corrientes?', 'El tramo conocido como General San Martín (Norte), sobre la Av. Costanera Gral. San Martín, se desarrolla a lo largo de aproximadamente 2,5 km. En 2008 se sumó la extensión Juan Pablo II (unos 900 m más). Estas son medidas de esos tramos históricos, no una medición actual de toda la costa ni una garantía de ruta continua. Elegí puntos de inicio y regreso y revisá accesos.'],
     ['¿Cómo llegar a la Costanera de Corrientes?', 'La referencia es Av. Costanera Gral. San Martín 3400, a la vera del Río Paraná. Desde el centro de la ciudad está a pocos kilómetros y puede llegarse en taxi, remis o bicicleta; desde el aeropuerto y la terminal de ómnibus lo más común es taxi, remis o traslado reservado. Confirmá las líneas de colectivo urbano con fuentes municipales antes de viajar.']
   ],
   sourceLabel: 'Fuentes públicas para profundizar: ',
@@ -132,13 +131,13 @@ const copy = isEs ? {
   schemaDescription: 'Paseo ribereño público sobre el río Paraná en Corrientes Capital, Argentina.'
 } : {
   heroKicker: 'Corrientes Capital · Argentina',
-  heroTitle: 'Where the city meets the Paraná.',
+  heroTitle: 'Costanera Corrientes, beside the Paraná.',
   heroIntro: 'An urban riverfront promenade shaped by lookouts, green spaces, beaches and a daily rhythm that shifts with the river light.',
   plan: 'Plan your visit',
   explore: 'Explore the promenade',
-  ratingLabel: 'visitor rating',
+  ratingLabel: 'Google Maps · 23 Oct 2026',
   reviewsLabel: 'reviews on the place profile',
-  lengthLabel: 'Costanera Norte',
+  lengthLabel: 'General San Martín (Norte)',
   lengthValue: '2.5 km',
   accessLabel: 'general access',
   accessValue: 'no admission',
@@ -151,10 +150,10 @@ const copy = isEs ? {
   storyEyebrow: 'A waterfront with memory',
   storyTitle: 'The Costanera is a way of looking at the city.',
   storyP1: 'On the banks of the Paraná River, Costanera General San Martín connects an open horizon with plazas, recreation areas and places to pause. It is one of the most representative public spaces in Corrientes Capital and a regular meeting point for residents and visitors.',
-  storyP2: 'Costanera Norte was developed between 1929 and 1954 and extends for about 2.5 kilometres. Along its walkable waterfront are recognisable points such as Punta San Sebastián, Punta Tacuara and Parque Cambá Cuá, as well as views towards General Belgrano Bridge.',
+  storyP2: 'General San Martín (Norte) was developed between 1929 and 1954 and extends for about 2.5 kilometres. Along its walkable waterfront are recognisable points such as Punta San Sebastián, Punta Tacuara and Parque Cambá Cuá, as well as views towards General Belgrano Bridge.',
   storyQuote: 'This is not an enclosed venue or a packaged excursion: it is a living urban edge, best experienced by noticing the river, the weather and the local pace.',
-  imageAlt: 'Paraná River and General Belgrano Bridge seen from the Costanera',
-  imageCaption: 'The Paraná River and General Belgrano Bridge are central features of the promenade’s visual landscape.',
+  imageAlt: 'Conceptual river and sun illustration, not a photograph or map',
+  imageCaption: 'Conceptual river illustration; it does not represent current promenade conditions.',
   visitEyebrow: 'Practical information',
   visitTitle: 'Before you go: the essentials.',
   visitIntro: 'This is an outdoor public promenade. The experience changes with the time of day, temperature, river level and events; check official channels for specific beach or activity information.',
@@ -166,7 +165,7 @@ const copy = isEs ? {
   historyEyebrow: 'History of the promenade',
   historyTitle: 'Construction, extension and riverbank.',
   timeline: [
-    ['1929–1954', 'Costanera Norte construction', 'The stretch associated with Avenida General San Martín was consolidated across these decades as an urban riverbank project.'],
+    ['1929–1954', 'General San Martín (Norte) construction', 'The stretch associated with Avenida General San Martín was consolidated across these decades as an urban riverbank project.'],
     ['2008', 'Juan Pablo II extension', 'The city added approximately 900 additional metres of waterfront, expanding its recreational continuity along the river.'],
     ['Today', 'A shared landscape', 'The wider waterfront connects promenades, beaches, green areas, monuments, panoramic points and everyday social life.']
   ],
@@ -197,7 +196,7 @@ const copy = isEs ? {
     ['From the airport', 'Doctor Fernando Piragine Niveyro International Airport is outside the city centre. The municipality announced a dedicated airport–port bus in 2022; because services can change, check current transport before travelling. Taxi, remis or a pre-booked transfer are common alternatives.'],
     ['By city bus', 'Stops and routes change with local operations. Consult municipal channels or the local operator to identify the route and stop best suited to your chosen access point.'],
     ['Taxi, remis, bike or on foot', 'From the centre, the Costanera is reachable depending on the section you choose. Arrange drop-off at a clear landmark, use a helmet when cycling and cross only at marked locations.'],
-    ['From the city centre', 'The riverfront sits a few kilometres from the downtown core. You can reach it by taxi or remis, or walk or cycle down the streets that lead to the river, always choosing a signed access point with an easy way back.']
+    ['From the city centre', 'Choose a section and calculate the distance from your actual starting point. You can reach it by taxi or remis, or walk or cycle down the streets that lead to the river, always choosing a signed access point with an easy way back.']
   ],
   transportNote: 'Planning note: check current public city sources for timetables, fares and diversions. The municipal airport-service notice documents a historical route and does not guarantee present operation.',
   mapEyebrow: 'Location',
@@ -229,7 +228,7 @@ const copy = isEs ? {
     ['What is the best time to visit?', 'Sunset is popular for light on the Paraná and typically gentler temperatures. A morning visit can also be a quieter choice.'],
     ['Are parking and restrooms available?', 'There are urban parking options nearby, subject to signs. Restrooms and other facilities should not be assumed across every stretch; verify on site.'],
     ['Can I use public transport from the airport?', 'The municipality reported a dedicated service in 2022, but routes may change or be discontinued. Confirm the current position before planning and consider taxi, remis or a pre-booked transfer.'],
-    ['How long is Costanera Corrientes?', 'The stretch known as Costanera Norte, along Avenida Costanera General San Martín, runs for about 2.5 km. In 2008 the Juan Pablo II extension added roughly 900 m, so the continuous riverside front you can walk is close to 3.4 km. Beaches, access points and paths vary by section.'],
+    ['How long is Costanera Corrientes?', 'Municipal tourism describes General San Martín as 2.5 km and Juan Pablo II as 900 m, inaugurated in 2008. These historical section lengths do not establish the length of every current waterfront path or guarantee a continuous route. Choose a section and check access on the day.'],
     ['How do I get to Costanera Corrientes?', 'The reference point is Av. Costanera Gral. San Martín 3400, on the bank of the Paraná River. It is a few kilometres from the city centre and reachable by taxi, remis or bicycle; from the airport and bus terminal, taxi, remis or a pre-booked transfer are the usual options. Check current city bus lines with municipal sources before travelling.']
   ],
   sourceLabel: 'Public sources for further reading: ',
@@ -248,14 +247,12 @@ const copy = isEs ? {
 const placeUrl = Astro.site ? new URL(homePath, Astro.site).toString() : undefined;
 const attractionSchema = {
   '@context': 'https://schema.org',
-  '@type': ['TouristAttraction', 'LocalBusiness'],
+  '@type': 'TouristAttraction',
   '@id': 'https://costaneractes.com/#attraction',
   name: 'Costanera Corrientes',
   alternateName: ['Costanera General San Martín', 'Costanera de Corrientes', 'Paseo Costanera Corrientes'],
   description: copy.schemaDescription,
   ...(placeUrl ? { url: placeUrl } : {}),
-  image: placeUrl ? [new URL('/images/costanera-bridge.jpg', Astro.site).toString()] : undefined,
-  telephone: '+54 379 447-4702',
   address: {
     '@type': 'PostalAddress',
     streetAddress: 'Av. Costanera Gral. San Martín 3400',
@@ -266,27 +263,15 @@ const attractionSchema = {
   },
   geo: {
     '@type': 'GeoCoordinates',
-    latitude: -27.465140576322273,
-    longitude: -58.850583022788314
+    latitude: -27.4651406,
+    longitude: -58.8480081
   },
   hasMap: 'https://maps.app.goo.gl/jQSYJQGbFLBneVRq9',
   sameAs: [
     'https://maps.app.goo.gl/jQSYJQGbFLBneVRq9',
     'https://corrientes.tur.ar/tour/costanera-de-corrientes/'
   ],
-  openingHoursSpecification: {
-    '@type': 'OpeningHoursSpecification',
-    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-    opens: '00:00',
-    closes: '23:59'
-  },
-  isAccessibleForFree: true,
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: '4.7',
-    reviewCount: '16422',
-    bestRating: '5'
-  }
+
 };
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -297,14 +282,14 @@ const faqSchema = {
     acceptedAnswer: { '@type': 'Answer', text: answer }
   }))
 };
-const mapEmbed = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6296.6415473703!2d-58.850583022788314!3d-27.465140576322273!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94456cb759536285%3A0x9405d9e6bbb5b145!2sCostanera%20Corrientes!5e1!3m2!1ses-419!2ses-419!4v1787796114936!5m2!1ses-419!2ses-419';
+const mapEmbed = 'https://www.google.com/maps?q=-27.4651406,-58.8480081&output=embed';
 ---
-<BaseLayout title={pageTitle} description={pageDescription} lang={lang} path={homePath} imageAlt="Costanera Corrientes along the Paraná River in Corrientes, Argentina">
+<BaseLayout title={pageTitle} description={pageDescription} lang={lang} path={homePath}>
   <script is:inline type="application/ld+json" set:html={JSON.stringify([attractionSchema, faqSchema])}></script>
   <Header lang={lang} />
   <main id="contenido-principal">
     <section class="hero" aria-labelledby="hero-title">
-      <img class="hero-media" src="/images/costanera-bridge.jpg" alt="Costanera Corrientes - Main view of the Paraná River waterfront in Corrientes, Argentina" width="1080" height="1350" fetchpriority="high" />
+      <img class="hero-media" src="/images/river-illustration.svg" alt={copy.imageAlt} width="1080" height="1350" fetchpriority="high" />
       <div class="container hero-content">
         <div class="hero-kicker">
           <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-5.2 7-12a7 7 0 1 0-14 0c0 6.8 7 12 7 12Z"/><circle cx="12" cy="9" r="2.2"/></svg>
@@ -317,7 +302,7 @@ const mapEmbed = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6296.641
           <a class="button button-ghost" href="#historia">{copy.explore}</a>
         </div>
         <div class="hero-facts" aria-label={isEs ? 'Datos destacados' : 'Highlights'}>
-          <div><strong>4.7 / 5</strong><span>{copy.ratingLabel} · 16,422 {copy.reviewsLabel}</span></div>
+          <div><strong>4.7 / 5</strong><span>{copy.ratingLabel} · 16,479 {copy.reviewsLabel}</span></div>
           <div><strong>{copy.lengthValue}</strong><span>{copy.lengthLabel}</span></div>
           <div><strong>{copy.accessValue}</strong><span>{copy.accessLabel}</span></div>
         </div>
@@ -342,7 +327,7 @@ const mapEmbed = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6296.641
           <blockquote class="story-quote">{copy.storyQuote}</blockquote>
         </div>
         <figure class="image-frame">
-          <img src="/images/costanera-riverfront.jpg" alt={copy.imageAlt} width="1080" height="1350" loading="lazy" />
+          <img src="/images/river-illustration.svg" alt={copy.imageAlt} width="1080" height="1350" loading="lazy" />
           <figcaption class="image-caption">{copy.imageCaption}</figcaption>
         </figure>
       </div>
@@ -421,7 +406,9 @@ const mapEmbed = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6296.641
           <span class="eyebrow">{copy.mapEyebrow}</span>
           <h2>{copy.mapTitle}</h2>
           <p>{copy.mapIntro}</p>
-          <p class="address"><strong>Costanera Corrientes</strong><br />Av. Costanera Gral. San Martín 3400<br />W3400 Corrientes, Argentina<br /><a href="tel:+543794474702">+54 379 447-4702</a></p>
+          <p>{isEs ? 'Google Maps indica 24 horas para esta ficha del paseo (23 de octubre de 2026). No es el horario de los balnearios ni una autorización para entrar al Paraná. Consultá el estado, boyado, guardavidas y señalización de cada playa en el día.' : 'Google Maps lists 24 hours for this promenade listing (23 October 2026). This is not a beach schedule or permission to enter the Paraná. Check each beach’s current status, buoyed area, lifeguards and signs on the day.'}</p>
+          <p><a href="https://visitcorrientes.tur.ar/quehacer/playas/">{isEs ? 'Información municipal de playas' : 'Municipal beach information'}</a></p>
+          <p class="address"><strong>Costanera Corrientes</strong><br />Av. Costanera Gral. San Martín 3400<br />W3400 Corrientes, Argentina<br /></p>
           <a class="button button-secondary" href="https://maps.app.goo.gl/jQSYJQGbFLBneVRq9">{copy.mapLink}</a>
         </div>
         <div class="map-frame"><iframe src={mapEmbed} title={isEs ? 'Mapa de Costanera Corrientes' : 'Costanera Corrientes map'} loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>

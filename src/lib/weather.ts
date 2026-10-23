@@ -1,6 +1,6 @@
 // Weather helpers for Costanera Corrientes.
 // Data source: Open-Meteo forecast API. Coordinates from the attraction record.
-export const COORDS = { lat: -27.465140576322273, lon: -58.850583022788314 };
+export const COORDS = { lat: -27.4651406, lon: -58.8480081 };
 
 // Convert wind speed (km/h) to the Beaufort scale for threshold logic.
 export function beaufort(kmh: number): number {
@@ -57,7 +57,7 @@ export function buildAdvice(p: WeatherPayload, lang: 'es' | 'en'): WeatherAdvice
 
   // ---- Risk (red, top) — derived from conditions, not an official alert ----
   if (isThunder) {
-    add(risk, s('Tormenta eléctrica: no te refugies bajo los árboles ni te acerques al río o al agua. Las actividades acuáticas se suspenden.', 'Thunderstorm: do not shelter under trees or go near the river or water. Water activities are suspended.'));
+    add(risk, s('Tormenta eléctrica: no te refugies bajo los árboles ni te acerques al río o al agua. Consultá a los prestadores; el pronóstico no confirma cierres.', 'Thunderstorm: do not shelter under trees or go near the river or water. Check with operators; this forecast does not confirm closures.'));
   }
   if (isHeavy) {
     add(risk, s('Lluvia intensa: evitá la costa baja y las riberas anegadas; las salidas en bote pueden suspenderse.', 'Heavy rain: avoid low banks and flooded shores; boat trips may be suspended.'));
@@ -69,7 +69,7 @@ export function buildAdvice(p: WeatherPayload, lang: 'es' | 'en'): WeatherAdvice
     add(risk, s('Mucho calor: evitá la exposición prolongada al sol e hidratate con frecuencia.', 'Extreme heat: avoid prolonged sun exposure and drink water often.'));
   }
   if (isFog) {
-    add(risk, s('Visibilidad reducida: las salidas en bote y la navegación se retrasan; no es buen momento para mirar el paisaje.', 'Reduced visibility: boat trips and navigation are delayed; not a good time for views.'));
+    add(risk, s('Visibilidad reducida: consultá a los prestadores antes de salir y caminá con cuidado.', 'Reduced visibility: check with operators before departures and walk with care.'));
   }
 
   // ---- Precipitation ----
@@ -214,8 +214,15 @@ export interface WeatherPayload {
 
 // Build the JSON consumed by the front-end from an Open-Meteo response.
 export function transform(data: any, lang: 'es' | 'en'): WeatherPayload {
-  const cur = data.current ?? {};
-  const daily = data.daily ?? { time: [], weather_code: [], temperature_2m_max: [], temperature_2m_min: [], precipitation_probability_max: [], wind_speed_10m_max: [] };
+  const cur = data?.current;
+  const daily = data?.daily;
+  const currentFields = ['temperature_2m','apparent_temperature','relative_humidity_2m','wind_speed_10m','precipitation','weather_code','uv_index'];
+  const dailyFields = ['weather_code','temperature_2m_max','temperature_2m_min','precipitation_probability_max','wind_speed_10m_max','uv_index_max'];
+  if (!cur || !daily || !currentFields.every(k => typeof cur[k] === 'number' && Number.isFinite(cur[k])) ||
+      typeof cur.time !== 'string' || !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(cur.time) ||
+      !Array.isArray(daily.time) || daily.time.length < 1 || daily.time.length > 7 ||
+      !daily.time.every((v: unknown) => typeof v === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(v)) ||
+      !dailyFields.every(k => Array.isArray(daily[k]) && daily[k].length === daily.time.length && daily[k].every((v: unknown) => typeof v === 'number' && Number.isFinite(v)))) throw new Error('Invalid forecast');
   const precipProbNow = Array.isArray(daily.precipitation_probability_max)
     ? daily.precipitation_probability_max[0] ?? 0
     : 0;
@@ -240,7 +247,7 @@ export function transform(data: any, lang: 'es' | 'en'): WeatherPayload {
 
   const cDesc = describe(cur.weather_code, lang);
   const payload: WeatherPayload = {
-    updated: cur.time ?? '',
+    updated: cur.time + '-03:00',
     current: {
       temp: Math.round(cur.temperature_2m ?? 0),
       feels: Math.round(cur.apparent_temperature ?? 0),

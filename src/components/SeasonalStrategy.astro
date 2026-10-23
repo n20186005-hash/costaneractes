@@ -6,24 +6,24 @@ const isEs = lang === 'es';
 const copy = isEs ? {
   eyebrow: 'Mejor época para visitar',
   title: 'Estrategia de visita por estación',
-  intro: 'Guía general basada en el clima promedio de la cuenca del Paraná en Corrientes (promedios de 30 años). Las cifras son orientativas; confirmá las condiciones actuales con fuentes oficiales antes de viajar.',
-  cols: ['Estación', 'Temperatura habitual', 'Lluvia', 'Río y costa', 'Recomendado para', 'Consejo'],
+  intro: 'Ideas de planificación por estación, no promedios medidos ni pronósticos del río. Confirmá el tiempo y las condiciones locales antes de salir.',
+  cols: ['Estación', 'Temperatura', 'Lluvia', 'Río y costa', 'Recomendado para', 'Consejo'],
   rows: [
-    ['Verano (dic–feb)', '25–34 °C', 'Frecuente, tormentas vespertinas', 'Río crecido, mucha humedad', 'Paseo al atardecer, hidratarse', 'Aprovechá la brisa y evitá el mediodía; llevá agua y protector.'],
-    ['Otoño (mar–may)', '18–28 °C', 'Moderada, días templados', 'Nivel estable, buena luz', 'Caminatas largas, fotografía', 'La estación más cómoda para recorrer sin prisa.'],
-    ['Invierno (jun–ago)', '10–22 °C', 'Baja, algunas heladas débiles', 'Río más bajo, días soleados', 'Confort térmico, ciclismo', 'Madrugadas y noches frescas: llevá una capa.'],
-    ['Primavera (sep–nov)', '18–30 °C', 'Variable, vientos y lluvias', 'Sube lentamente, aves migrantes', 'Observación de aves, naturaleza', 'Clima cambiante: preparate para sol y lluvia el mismo día.']
+    ['Verano (dic–feb)', 'Consultar pronóstico', 'Consultar pronóstico', 'No inferir seguridad de baño por la estación', 'Paseo al atardecer, hidratarse', 'Aprovechá la brisa y evitá el mediodía; llevá agua y protector.'],
+    ['Otoño (mar–may)', 'Consultar pronóstico', 'Consultar pronóstico', 'Consultar estado del río en el día', 'Caminatas largas, fotografía', 'Elegí la duración según el tiempo y tu comodidad.'],
+    ['Invierno (jun–ago)', 'Consultar pronóstico', 'Consultar pronóstico', 'La altura del río requiere información actual', 'Confort térmico, ciclismo', 'Madrugadas y noches frescas: llevá una capa.'],
+    ['Primavera (sep–nov)', 'Consultar pronóstico', 'Consultar pronóstico', 'Confirmar condiciones y acceso', 'Observación de aves, naturaleza', 'Clima cambiante: preparate para sol y lluvia el mismo día.']
   ]
 } : {
   eyebrow: 'Best time to visit',
   title: 'Season-by-season visiting strategy',
-  intro: 'General guidance based on the average climate of the Paraná basin in Corrientes (30-year normals). Figures are indicative; confirm current conditions with official sources before travelling.',
-  cols: ['Season', 'Typical temperature', 'Rain', 'River & shore', 'Best for', 'Tip'],
+  intro: 'Seasonal planning ideas, not measured climate normals or river forecasts. Check the weather and local conditions before leaving.',
+  cols: ['Season', 'Temperature', 'Rain', 'River & shore', 'Best for', 'Tip'],
   rows: [
-    ['Summer (Dec–Feb)', '25–34 °C', 'Frequent, late-day storms', 'High river, humid', 'Sunset strolls, hydration', 'Enjoy the breeze, avoid midday; bring water and sunscreen.'],
-    ['Autumn (Mar–May)', '18–28 °C', 'Moderate, mild days', 'Stable level, good light', 'Long walks, photography', 'The most comfortable season for an unhurried visit.'],
-    ['Winter (Jun–Aug)', '10–22 °C', 'Low, occasional light frosts', 'Lower river, sunny days', 'Thermal comfort, cycling', 'Cool mornings and nights: bring a layer.'],
-    ['Spring (Sep–Nov)', '18–30 °C', 'Variable, wind and rain', 'Rises slowly, migratory birds', 'Birdwatching, nature', 'Changeable weather: prepare for sun and rain on the same day.']
+    ['Summer (Dec–Feb)', 'Check forecast', 'Check forecast', 'Season does not establish swimming safety', 'Sunset strolls, hydration', 'Enjoy the breeze, avoid midday; bring water and sunscreen.'],
+    ['Autumn (Mar–May)', 'Check forecast', 'Check forecast', 'Check river conditions on the day', 'Long walks, photography', 'Choose the duration according to the weather and your comfort.'],
+    ['Winter (Jun–Aug)', 'Check forecast', 'Check forecast', 'River level requires current information', 'Thermal comfort, cycling', 'Cool mornings and nights: bring a layer.'],
+    ['Spring (Sep–Nov)', 'Check forecast', 'Check forecast', 'Confirm conditions and access', 'Birdwatching, nature', 'Changeable weather: prepare for sun and rain on the same day.']
   ]
 };
 ---

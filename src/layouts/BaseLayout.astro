@@ -12,7 +12,7 @@ interface Props {
   noindex?: boolean;
 }
 
-const { title, description, lang, path = '/', image = '/images/costanera-bridge.jpg', imageAlt = 'Costanera Corrientes in Corrientes, Argentina', noindex = false } = Astro.props;
+const { title, description, lang, path = '/', image = '/icons/icon-512.png', imageAlt = 'Costanera Corrientes guide emblem', noindex = false } = Astro.props;
 const canonical = Astro.site ? new URL(path, Astro.site).toString() : undefined;
 const socialImage = Astro.site ? new URL(image, Astro.site).toString() : undefined;
 const alternatePath = lang === 'es' ? (path === '/' ? '/en/' : `/en${path}`) : (path === '/en/' ? '/' : path.replace(/^\/en/, '') || '/');
@@ -33,9 +33,9 @@ const alternate = Astro.site ? new URL(alternatePath, Astro.site).toString() : u
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
     {canonical && <link rel="canonical" href={canonical} />}
-    {canonical && <link rel="alternate" hreflang={lang} href={canonical} />}
+    {canonical && <link rel="alternate" hreflang={lang === 'es' ? 'es-AR' : 'en'} href={canonical} />}
     {alternate && <link rel="alternate" hreflang={lang === 'es' ? 'en' : 'es-AR'} href={alternate} />}
-    {Astro.site && <link rel="alternate" hreflang="x-default" href={new URL('/', Astro.site).toString()} />}
+    {Astro.site && <link rel="alternate" hreflang="x-default" href={new URL(lang === 'es' ? path : alternatePath, Astro.site).toString()} />}
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={siteName(lang)} />
     <meta property="og:locale" content={lang === 'es' ? 'es_AR' : 'en_US'} />
@@ -52,35 +52,7 @@ const alternate = Astro.site ? new URL(alternatePath, Astro.site).toString() : u
   <body>
     <a class="skip-link" href="#contenido-principal">{lang === 'es' ? 'Saltar al contenido principal' : 'Skip to main content'}</a>
     <slot />
-    <script is:inline>
-      (() => {
-        const key = 'costanera-cookie-preferences';
-        const loadAnalytics = () => {
-          if (document.querySelector('script[data-ga4]')) return;
-          const script = document.createElement('script');
-          script.async = true;
-          script.src = 'https://www.googletagmanager.com/gtag/js?id=G-HXM22WWPKP';
-          script.dataset.ga4 = 'G-HXM22WWPKP';
-          document.head.appendChild(script);
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){window.dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-HXM22WWPKP', { anonymize_ip: true });
-        };
-        try {
-          const settings = JSON.parse(localStorage.getItem(key) || '{}');
-          if (settings.analytics === true) loadAnalytics();
-        } catch (_) {
-          // Analytics stays disabled when preferences cannot be read.
-        }
-      })();
-    </script>
-    <script is:inline>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js').catch(() => {});
-        });
-      }
-    </script>
+    <script is:inline src="/analytics.js"></script>
+    <script is:inline src="/site-controls.js"></script>
   </body>
 </html>

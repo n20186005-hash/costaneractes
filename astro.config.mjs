@@ -10,7 +10,7 @@ export default defineConfig({
   site: site || undefined,
   output: 'static',
   server: { allowedHosts: true },
-  integrations: site ? [sitemap()] : [],
+  integrations: site ? [sitemap({ filter: (page) => !page.includes('/legal/') && !page.includes('/404') })] : [],
   vite: {
     plugins: [tailwindcss()],
   },
