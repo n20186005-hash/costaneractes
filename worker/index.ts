@@ -35,7 +35,7 @@ export default {
    if (normalized!==url.pathname&&pages.has(normalized)) {url.pathname=normalized;return Response.redirect(url.href,301);}
    response = await env.ASSETS.fetch(request);
    if (response.status===404 || ['/404','/404/','/404.html','/en/404','/en/404/','/en/404.html'].includes(url.pathname)) {
-    const target=new URL(url);target.pathname=url.pathname.startsWith('/en/')?'/en/404/':'/404/';const page=await env.ASSETS.fetch(new Request(target,request));response=new Response(page.body,{status:404,headers:page.headers});
+    const target=new URL(url);target.pathname=url.pathname.startsWith('/en/')?'/en/404/':'/404.html';const page=await env.ASSETS.fetch(new Request(target,request));response=new Response(page.body,{status:404,headers:page.headers});
    }
   }
   const headers=new Headers(response.headers);headers.set('X-Content-Type-Options','nosniff');headers.set('Referrer-Policy','strict-origin-when-cross-origin');if(response.status===404)headers.set('X-Robots-Tag','noindex');

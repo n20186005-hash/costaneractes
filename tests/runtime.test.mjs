@@ -40,3 +40,8 @@ test('actual offline worker: weather bypasses cache; offline assets retained, fa
  handlers.fetch({request:new Request('https://costaneractes.com/missing'),respondWith:p=>responded=p,waitUntil:()=>{}});assert.equal((await responded).status,404);assert.equal(writes,0);
  context.fetch=async()=>{throw Error('offline');};handlers.fetch({request:new Request('https://costaneractes.com/icons/icon-192.png'),respondWith:p=>responded=p,waitUntil:()=>{}});assert.equal(await(await responded).text(),'offline asset');
 });
+
+test('localized error targets match actual Astro output files',async()=>{
+ const assets={ASSETS:{fetch:async request=>{const path=new URL(request.url).pathname;const file='dist'+path+(path.endsWith('/')?'index.html':'');return fs.existsSync(file)?new Response(fs.readFileSync(file),{headers:{'Content-Type':'text/html'}}):new Response('not an asset',{status:404});}}};
+ for(const path of ['/unknown','/404.html','/404/','/en/unknown','/en/404.html']){const response=await worker.fetch(new Request('https://costaneractes.com'+path),assets);assert.equal(response.status,404);assert.match(await response.text(),path.startsWith('/en/')?/Page not found/:/Página no encontrada/);}
+});
