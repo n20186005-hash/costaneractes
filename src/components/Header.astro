@@ -1,6 +1,6 @@
 ---
-interface Props { lang: 'es' | 'en'; }
-const { lang } = Astro.props;
+interface Props { lang: 'es' | 'en'; i18n?: boolean; }
+const { lang, i18n = true } = Astro.props;
 const isEs = lang === 'es';
 const home = isEs ? '/' : '/en/';
 const topic = Astro.url.pathname.replace(/^\/en(?=\/|$)/, '') || '/';
@@ -24,7 +24,7 @@ const copy = isEs ? {
       </nav>
       <div class="language-switcher" aria-label={copy.language}>
         <a class:list={{ active: isEs }} href={topic} lang="es">ES</a>
-        <a class:list={{ active: !isEs }} href={topic === "/" ? "/en/" : `/en${topic}`} lang="en">EN</a>
+        {i18n && <a class:list={{ active: !isEs }} href={topic === "/" ? "/en/" : `/en${topic}`} lang="en">EN</a>}
       </div>
     </div>
   </div>

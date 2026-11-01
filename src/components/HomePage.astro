@@ -6,6 +6,7 @@ import WeatherSection from './WeatherSection.astro';
 import SeasonalStrategy from './SeasonalStrategy.astro';
 import Itineraries from './Itineraries.astro';
 import VisitorResponsibility from './VisitorResponsibility.astro';
+import TopicCluster from './TopicCluster.astro';
 
 interface Props { lang: 'es' | 'en'; }
 const { lang } = Astro.props;
@@ -302,7 +303,7 @@ const mapEmbed = 'https://www.google.com/maps?q=-27.4651406,-58.8480081&output=e
           <a class="button button-ghost" href="#historia">{copy.explore}</a>
         </div>
         <div class="hero-facts" aria-label={isEs ? 'Datos destacados' : 'Highlights'}>
-          <div><strong>4.7 / 5</strong><span>{copy.ratingLabel} · 16,479 {copy.reviewsLabel}</span></div>
+          <div><strong>4.7 / 5</strong><span>{copy.ratingLabel} · 16,491 {copy.reviewsLabel}</span></div>
           <div><strong>{copy.lengthValue}</strong><span>{copy.lengthLabel}</span></div>
           <div><strong>{copy.accessValue}</strong><span>{copy.accessLabel}</span></div>
         </div>
@@ -428,6 +429,8 @@ const mapEmbed = 'https://www.google.com/maps?q=-27.4651406,-58.8480081&output=e
         <div class="food-types">{copy.foodTypes.map(([title, detail]) => <article class="food-type"><b>{title}</b><span>{detail}</span></article>)}</div>
       </div>
     </section>
+
+    {lang === 'es' && <TopicCluster lang="es" />}
 
     <VisitorResponsibility lang={lang} />
 

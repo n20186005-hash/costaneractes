@@ -301,7 +301,45 @@ img { display: block; max-width: 100%; }
 .resp-card h4 { margin: 0 0 .5rem; color: var(--deep); font-family: Georgia, serif; font-size: 1.2rem; }
 .resp-card p { margin: 0; color: var(--muted); font-size: .92rem; }
 
+/* Topic pages */
+.topic-hero { position: relative; color: white; background: var(--deep); padding: 9rem 0 3.5rem; overflow: hidden; }
+.topic-hero .container { max-width: 54rem; }
+.breadcrumb { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; margin: 0 0 1.3rem; font-size: .8rem; color: rgba(255,255,255,.82); }
+.breadcrumb a { color: rgba(255,255,255,.9); text-decoration: none; }
+.breadcrumb a:hover { color: #f8d998; }
+.breadcrumb [aria-hidden] { opacity: .55; }
+.topic-hero .eyebrow { color: #f8d998; }
+.topic-hero h1 { max-width: 48rem; margin: .8rem 0 1.1rem; font-family: Georgia, "Times New Roman", serif; font-size: clamp(2.3rem, 5.5vw, 4.4rem); letter-spacing: -.05em; line-height: 1; }
+.topic-hero .lead { max-width: 44rem; margin: 0; color: rgba(255,255,255,.92); font-size: clamp(1.05rem, 2vw, 1.3rem); }
+.topic-hero .updated { margin: 1.5rem 0 0; font-size: .8rem; color: #bcd6d2; }
+
+.topic-body { background: var(--paper); }
+.topic-section { max-width: 54rem; margin: 0 auto; padding: 2.6rem 0; border-bottom: 1px solid var(--line); }
+.topic-section:last-child { border-bottom: 0; }
+.topic-section h2 { font-family: Georgia, serif; color: var(--deep); font-size: clamp(1.5rem, 3vw, 2.2rem); letter-spacing: -.02em; margin: 0 0 1rem; }
+.topic-section p { color: var(--muted); font-size: 1.05rem; }
+.topic-section ul { color: var(--muted); padding-left: 1.2rem; }
+.topic-section li { margin: .4rem 0; }
+.topic-callout { margin: 1.4rem 0 0; padding: 1.1rem 1.25rem; border-left: 3px solid var(--sun); background: #fff8e9; color: var(--deep); font-size: .96rem; }
+
+.faq-embed { max-width: 54rem; margin: 0 auto; padding: 2.6rem 0 0; }
+
+.related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.related-card { display: block; padding: 1.4rem; border-radius: .8rem; background: white; border: 1px solid var(--line); border-top: 4px solid var(--aqua); text-decoration: none; transition: transform .15s ease, box-shadow .15s ease; }
+.related-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+.related-card small { color: var(--river); font-size: .72rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
+.related-card h4 { margin: .5rem 0 0; color: var(--deep); font-family: Georgia, serif; font-size: 1.12rem; line-height: 1.2; }
+
+/* Topic cluster on home */
+.topic-group { margin-top: 3rem; }
+.topic-group-title { font-family: Georgia, serif; color: var(--deep); font-size: clamp(1.4rem, 3vw, 1.9rem); letter-spacing: -.02em; margin: 0 0 1.2rem; }
+.topic-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.topic-card { display: block; padding: 1.3rem; border-radius: .8rem; background: white; border: 1px solid var(--line); text-decoration: none; transition: transform .15s ease, box-shadow .15s ease; }
+.topic-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+.topic-card-kicker { color: var(--river); font-size: .72rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
+.topic-card h4 { margin: .5rem 0 0; color: var(--deep); font-family: Georgia, serif; font-size: 1.12rem; line-height: 1.2; }
+
 @media (max-width: 860px) {
-  .weather-grid, .group-grid, .resp-grid, .advice-grid { grid-template-columns: 1fr; }
+  .weather-grid, .group-grid, .resp-grid, .advice-grid, .topic-grid, .related-grid { grid-template-columns: 1fr; }
   .weather-grid { gap: 1rem; }
 }

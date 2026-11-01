@@ -1,0 +1,138 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import type { Topic } from '../data/topics';
+import { SITE, SOURCES, VERIFIED, getTopic } from '../data/topics';
+
+interface Props { topic: Topic; }
+const { topic } = Astro.props;
+const lang: 'es' = 'es';
+const path = `/${topic.slug}/`;
+const placeUrl = `${SITE}${path}`;
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: `${SITE}/` },
+    { '@type': 'ListItem', position: 2, name: topic.groupLabel, item: `${SITE}/` },
+    { '@type': 'ListItem', position: 3, name: topic.h1, item: placeUrl }
+  ]
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: topic.faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer }
+  }))
+};
+
+const webPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': `${placeUrl}#webpage`,
+  url: placeUrl,
+  name: topic.h1,
+  description: topic.metaDescription,
+  inLanguage: 'es-AR',
+  about: { '@type': 'TouristAttraction', '@id': `${SITE}#attraction` },
+  isPartOf: { '@type': 'WebSite', '@id': `${SITE}#website` }
+};
+
+const jsonLd = [webPageSchema, breadcrumbSchema, faqSchema];
+
+const related = topic.related.map((s) => getTopic(s)).filter((t): t is Topic => Boolean(t));
+const verifiedLabel = VERIFIED.charAt(0).toUpperCase() + VERIFIED.slice(1);
+---
+
+<BaseLayout title={topic.metaTitle} description={topic.metaDescription} lang={lang} path={path} i18n={false}>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
+  <Header lang={lang} i18n={false} />
+  <main id="contenido-principal">
+    <section class="topic-hero">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="/">Inicio</a>
+          <span aria-hidden="true">/</span>
+          <span>{topic.groupLabel}</span>
+          <span aria-hidden="true">/</span>
+          <span aria-current="page">{topic.h1}</span>
+        </nav>
+        <span class="eyebrow">{topic.kicker}</span>
+        <h1>{topic.h1}</h1>
+        <p class="lead">{topic.lead}</p>
+        <p class="updated">Información actualizada: {topic.updated}</p>
+      </div>
+    </section>
+
+    <div class="topic-body">
+      <section class="section">
+        <div class="container">
+          {topic.sections.map((section) => (
+            <article class="topic-section">
+              <h2>{section.heading}</h2>
+              {section.paragraphs?.map((p) => <p>{p}</p>)}
+              {section.bullets && (
+                <ul>
+                  {section.bullets.map((b) => <li>{b}</li>)}
+                </ul>
+              )}
+              {section.callout && <div class="topic-callout">{section.callout}</div>}
+            </article>
+          ))}
+
+          {topic.faqs.length > 0 && (
+            <section class="faq-embed" id="faq">
+              <h2 class="block-title">Preguntas frecuentes</h2>
+              <div class="faq-list">
+                {topic.faqs.map((f) => (
+                  <details><summary>{f.question}</summary><p>{f.answer}</p></details>
+                ))}
+              </div>
+            </section>
+          )}
+        </div>
+      </section>
+
+      {related.length > 0 && (
+        <section class="section tone-sand">
+          <div class="container">
+            <div class="section-head">
+              <span class="eyebrow">Leé también</span>
+              <h2>Guías relacionadas de la Costanera</h2>
+            </div>
+            <div class="related-grid">
+              {related.map((t) => (
+                <a class="related-card" href={`/${t.slug}/`}>
+                  <small>{t.groupLabel}</small>
+                  <h4>{t.h1}</h4>
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      <section class="section sources-section" id="fuentes">
+        <div class="container">
+          <div class="section-head">
+            <span class="eyebrow">Fuentes</span>
+            <h2>Fuentes y verificación</h2>
+          </div>
+          <ul class="sources-list">
+            {SOURCES.map((s) => <li><a href={s.url} target="_blank" rel="noopener noreferrer">{s.name}</a></li>)}
+          </ul>
+          <p class="source-note">
+            Guía independiente: la información se contrasta con fuentes públicas y se marca para verificar
+            antes de viajar. Última verificación de datos: {verifiedLabel}. No contiene recomendaciones comerciales.
+          </p>
+        </div>
+      </section>
+    </div>
+  </main>
+  <Footer lang={lang} />
+</BaseLayout>

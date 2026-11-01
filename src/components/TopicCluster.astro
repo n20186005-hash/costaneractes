@@ -1,0 +1,40 @@
+---
+import { GROUP_ORDER, groupLabel, topicsByGroup } from '../data/topics';
+
+interface Props { lang?: 'es' | 'en'; }
+const { lang = 'es' } = Astro.props;
+const isEs = lang === 'es';
+
+const copy = isEs ? {
+  eyebrow: 'Guías temáticas',
+  title: 'La Costanera, punto por punto',
+  intro: 'Preguntas frecuentes y puntos de interés de la Costanera de Corrientes, organizados por tema. Información independiente, contrastada con fuentes públicas y marcada para verificar antes de viajar.'
+} : {
+  eyebrow: 'Topic guides',
+  title: 'The Costanera, point by point',
+  intro: 'Frequently asked questions and points of interest along Costanera Corrientes, grouped by theme. Independent information cross-checked against public sources and marked to verify before travelling.'
+};
+---
+
+<section class="section" id="guias">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">{copy.eyebrow}</span>
+      <h2>{copy.title}</h2>
+      <p>{copy.intro}</p>
+    </div>
+    {GROUP_ORDER.map((group) => (
+      <div class="topic-group">
+        <h3 class="topic-group-title">{groupLabel(group)}</h3>
+        <div class="topic-grid">
+          {topicsByGroup(group).map((t) => (
+            <a class="topic-card" href={`/${t.slug}/`}>
+              <span class="topic-card-kicker">{t.kicker}</span>
+              <h4>{t.h1}</h4>
+            </a>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
