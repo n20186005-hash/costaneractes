@@ -15,4 +15,4 @@ The existing optional Google Analytics setting is retained. Rejecting or failing
 
 Municipal tourism describes the historic General San Martín section as 2.5 km and Juan Pablo II as 900 m, inaugurated in 2008. These section lengths do not guarantee a present continuous route. Sources: [Paseo por la Costa](https://visitcorrientes.tur.ar/quehacer/paseo-por-la-costa/) and [municipal beach information](https://visitcorrientes.tur.ar/quehacer/playas/). The dated Google Maps listing is attributed visibly and is not republished as an independent aggregate rating.
 
-See [VISUAL-CREDITS.md](VISUAL-CREDITS.md). Unsupported photographic assets were removed; the river illustration is a conceptual graphic, not a location photograph or map.
+See [VISUAL-CREDITS.md](VISUAL-CREDITS.md). Two historical photographs have been restored to the guide; copyright remains with the original photographers and reuse permission is not independently verified. The original river illustration is a conceptual graphic, not a location photograph or map.

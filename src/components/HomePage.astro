@@ -40,8 +40,10 @@ const copy = isEs ? {
   storyP1: 'En Corrientes Capital, a la orilla del río Paraná, la Costanera General San Martín articula el horizonte abierto con plazas, áreas recreativas y sectores de descanso. Es uno de los espacios urbanos más representativos de Corrientes Capital y un punto habitual de encuentro para residentes y visitantes.',
   storyP2: 'La General San Martín (Norte) se desarrolló entre 1929 y 1954 y se extiende aproximadamente 2,5 kilómetros. Junto a su continuidad peatonal aparecen puntos reconocibles como Punta San Sebastián, Punta Tacuara y el parque Cambá Cuá, además de vistas hacia el Puente General Belgrano.',
   storyQuote: 'No es un recinto ni una excursión cerrada: es un borde urbano vivo, pensado para recorrer con atención al río, al clima y al ritmo local.',
-  imageAlt: 'Ilustración conceptual de un río y el sol, no fotografía ni mapa',
-  imageCaption: 'Ilustración conceptual del río; no representa las condiciones actuales del paseo.',
+  heroImageAlt: 'Fotografía del Puente General Belgrano sobre el río Paraná en Corrientes',
+  heroImageCaption: 'Puente General Belgrano. Fotografía de archivo; los derechos de autor pertenecen a la persona que la tomó.',
+  imageAlt: 'Vista de una playa ribereña y el río Paraná en Corrientes',
+  imageCaption: 'Vista de la ribera de Corrientes. Fotografía de archivo; los derechos de autor pertenecen a la persona que la tomó.',
   visitEyebrow: 'Información práctica',
   visitTitle: 'Antes de salir: lo esencial.',
   visitIntro: 'Este es un paseo público exterior. La experiencia cambia según la hora, la temperatura, el nivel del río y los eventos; la información específica de balnearios o actividades debe confirmarse mediante canales oficiales.',
@@ -153,8 +155,10 @@ const copy = isEs ? {
   storyP1: 'On the banks of the Paraná River, Costanera General San Martín connects an open horizon with plazas, recreation areas and places to pause. It is one of the most representative public spaces in Corrientes Capital and a regular meeting point for residents and visitors.',
   storyP2: 'General San Martín (Norte) was developed between 1929 and 1954 and extends for about 2.5 kilometres. Along its walkable waterfront are recognisable points such as Punta San Sebastián, Punta Tacuara and Parque Cambá Cuá, as well as views towards General Belgrano Bridge.',
   storyQuote: 'This is not an enclosed venue or a packaged excursion: it is a living urban edge, best experienced by noticing the river, the weather and the local pace.',
-  imageAlt: 'Conceptual river and sun illustration, not a photograph or map',
-  imageCaption: 'Conceptual river illustration; it does not represent current promenade conditions.',
+  heroImageAlt: 'Photograph of General Belgrano Bridge over the Paraná River in Corrientes',
+  heroImageCaption: 'General Belgrano Bridge. Archival photograph; copyright remains with the original photographer.',
+  imageAlt: 'View of a riverside beach and the Paraná River in Corrientes',
+  imageCaption: 'Corrientes riverfront. Archival photograph; copyright remains with the original photographer.',
   visitEyebrow: 'Practical information',
   visitTitle: 'Before you go: the essentials.',
   visitIntro: 'This is an outdoor public promenade. The experience changes with the time of day, temperature, river level and events; check official channels for specific beach or activity information.',
@@ -285,12 +289,12 @@ const faqSchema = {
 };
 const mapEmbed = 'https://www.google.com/maps?q=-27.4651406,-58.8480081&output=embed';
 ---
-<BaseLayout title={pageTitle} description={pageDescription} lang={lang} path={homePath}>
+<BaseLayout title={pageTitle} description={pageDescription} lang={lang} path={homePath} image="/images/costanera-bridge.jpg" imageAlt={copy.heroImageAlt}>
   <script is:inline type="application/ld+json" set:html={JSON.stringify([attractionSchema, faqSchema])}></script>
   <Header lang={lang} />
   <main id="contenido-principal">
     <section class="hero" aria-labelledby="hero-title">
-      <img class="hero-media" src="/images/river-illustration.svg" alt={copy.imageAlt} width="1080" height="1350" fetchpriority="high" />
+      <img class="hero-media" src="/images/costanera-bridge.jpg" alt={copy.heroImageAlt} width="1080" height="1350" fetchpriority="high" />
       <div class="container hero-content">
         <div class="hero-kicker">
           <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-5.2 7-12a7 7 0 1 0-14 0c0 6.8 7 12 7 12Z"/><circle cx="12" cy="9" r="2.2"/></svg>
@@ -310,6 +314,8 @@ const mapEmbed = 'https://www.google.com/maps?q=-27.4651406,-58.8480081&output=e
       </div>
     </section>
 
+    <div class="hero-photo-caption"><div class="container"><small>{copy.heroImageCaption}</small></div></div>
+
     <aside class="quickbar" aria-label={isEs ? 'Resumen para visitantes' : 'Visitor summary'}>
       <div class="container quickbar-inner">
         {copy.quick.map(([title, detail]) => <div class="quick-item"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h16M12 4v16"/></svg><div><b>{title}</b><span>{detail}</span></div></div>)}
@@ -328,7 +334,7 @@ const mapEmbed = 'https://www.google.com/maps?q=-27.4651406,-58.8480081&output=e
           <blockquote class="story-quote">{copy.storyQuote}</blockquote>
         </div>
         <figure class="image-frame">
-          <img src="/images/river-illustration.svg" alt={copy.imageAlt} width="1080" height="1350" loading="lazy" />
+          <img src="/images/costanera-riverfront.jpg" alt={copy.imageAlt} width="1080" height="1350" loading="lazy" />
           <figcaption class="image-caption">{copy.imageCaption}</figcaption>
         </figure>
       </div>

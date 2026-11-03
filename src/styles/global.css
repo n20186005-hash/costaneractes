@@ -64,6 +64,8 @@ img { display: block; max-width: 100%; }
 .hero-facts div { padding: .85rem 1rem; background: rgba(7, 40, 42, .48); }
 .hero-facts strong { display: block; color: #f8d998; font-size: 1.12rem; }
 .hero-facts span { display: block; font-size: .76rem; color: rgba(255,255,255,.83); }
+.hero-photo-caption { padding: .5rem 0; background: var(--deep); color: #c4d9d6; font-size: .75rem; }
+.hero-photo-caption .container { text-align: right; }
 
 .quickbar { position: relative; z-index: 2; background: var(--deep); color: white; }
 .quickbar-inner { display: grid; grid-template-columns: 1.25fr repeat(3, 1fr); gap: 1px; background: rgba(255,255,255,.16); }
